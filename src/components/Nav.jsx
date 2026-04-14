@@ -5,10 +5,11 @@ import { Menu, X } from 'lucide-react'
 import logoImg from '../assets/logo.png'
 
 const navItems = [
-    { label: 'Welcome', to: '#' },
-    { label: 'Why iSchool', to: '#why' },
-    { label: 'Features', to: '#features' },
-    { label: 'Modules', to: '#modules' },
+    { label: 'Home', to: '/' },
+    { label: 'Features', to: '/features' },
+    { label: 'Blogs', to: '/blogs' },
+    { label: 'FAQs', to: '/faqs' },
+    { label: 'Contact', to: '/contact' },
 ];
 
 const containerVariants = {
