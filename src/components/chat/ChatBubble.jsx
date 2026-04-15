@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, X } from 'lucide-react';
+import { Bot, X } from 'lucide-react';
 
 const ChatBubble = ({ isOpen, onClick }) => {
   return (
@@ -35,7 +35,7 @@ const ChatBubble = ({ isOpen, onClick }) => {
         <X className="w-7 h-7 text-white" />
       ) : (
         <div className="relative">
-          <MessageCircle className="w-6 h-6" />
+          <Bot className="w-7 h-7" />
           {/* <motion.div
             animate={{ 
               y: [0, -3, 0],

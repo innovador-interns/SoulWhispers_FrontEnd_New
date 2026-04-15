@@ -28,7 +28,7 @@ const ChatWindow = ({ messages, onClose, onClearChat, onSendMessage, isTyping })
             <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-400 border-[2.5px] border-emerald-700 rounded-full animate-pulse" />
           </div>
           <div>
-            <h3 className="text-sm font-bold tracking-wide">Soul Whisperer</h3>
+            <h3 className="text-sm font-bold tracking-wide">Soul Whispers</h3>
             <p className="text-[10px] text-white/70 font-medium tracking-wider uppercase leading-none mt-0.5">Online AI Support</p>
           </div>
         </div>
