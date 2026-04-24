@@ -1,187 +1,305 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import sheebaImg from "../../assets/sheeba-farhan.png";
-import nasreenImg from "../../assets/maam-nasreen.png";
-import tahirImg from "../../assets/tahir-aziz.png";
-import screen1 from "../../assets/screen1.jpg";
-import screen2 from "../../assets/screen2.jpg";
-import screen3 from "../../assets/screen3.jpg";
-import screen4 from "../../assets/screen4.jpg";
-import screen5 from "../../assets/screen5.jpg";
-import screen6 from "../../assets/screen6.jpg";
-import appStoreImg from "../../assets/app-store.png";
-import googlePlayImg from "../../assets/google-play.png";
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Calendar, MessageCircleHeart, ShieldCheck, Stars } from 'lucide-react'
+import sheebaImg from '../../assets/sheeba-farhan.png'
+import imranImg from '../../assets/Imran.png'
+import beenishImg from '../../assets/Beenish.png'
+import nasreenImg from '../../assets/maam-nasreen.png'
+import tahirImg from '../../assets/tahir-aziz.png'
+import screen1 from '../../assets/screen1.jpg'
+import screen2 from '../../assets/screen2.jpg'
+import screen3 from '../../assets/screen3.jpg'
+import screen4 from '../../assets/screen4.jpg'
+import screen5 from '../../assets/screen5.jpg'
+import screen6 from '../../assets/screen6.jpg'
+import appStoreImg from '../../assets/app-store.png'
+import googlePlayImg from '../../assets/google-play.png'
+import BreathingOrb from '../ui/BreathingOrb'
+import BackgroundLines from '../ui/BackgroundLines'
+import { gsap } from '../../lib/gsap'
 
 const advisors = [
   {
-    name: "Dr. Sheeba Farhan",
-    role: "Assistant Professor at FUUAST",
+    name: 'Dr. Imran Yousuf',
+    role: 'International Trainer & Psychologist',
+    img: imranImg,
+  },
+  {
+    name: 'Dr. Beenish Qamar',
+    role: 'Maxillofacial Surgeon & Public Health',
+    img: beenishImg,
+  },
+  {
+    name: 'Dr. Sheeba Farhan',
+    role: 'Assistant Professor at FUUAST',
     img: sheebaImg,
   },
   {
-    name: "Nasreen Iqbal",
-    role: "COO at Innovador Solutions",
+    name: 'Nasreen Iqbal',
+    role: 'COO at Innovador Solutions',
     img: nasreenImg,
   },
-  {
-    name: "Tahir Aziz",
-    role: "MD at Innovador Solutions",
-    img: tahirImg,
-  },
-];
+  // {
+  //   name: 'Tahir Aziz',
+  //   role: 'MD at Innovador Solutions',
+  //   img: tahirImg,
+  // },
+]
 
-const screens = [
-  screen1,
-  screen2,
-  screen3,
-  screen4,
-  screen5,
-  screen6,
-];
+const screens = [screen1, screen2, screen3, screen4, screen5, screen6]
+
+const capabilities = [
+  {
+    title: 'AI assessment',
+    description: 'Reduce uncertainty with a guided intake that surfaces meaningful next steps.',
+    icon: Stars,
+  },
+  {
+    title: 'Appointment flow',
+    description: 'Move from reflection to booking with less friction and a clearer sense of control.',
+    icon: Calendar,
+  },
+  {
+    title: 'Daily feedback',
+    description: 'Check in gently and stay connected to your progress without pressure.',
+    icon: MessageCircleHeart,
+  },
+  {
+    title: 'Private by design',
+    description: 'Every interaction is shaped to feel safe, intentional, and respectful.',
+    icon: ShieldCheck,
+  },
+]
 
 export default function AdvisorSection() {
-  const [index, setIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [index, setIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const sectionRef = useRef(null)
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused) return undefined
 
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % screens.length);
-    }, 3000);
+    const timer = window.setInterval(() => {
+      setIndex((prev) => (prev + 1) % screens.length)
+    }, 3500)
 
-    return () => clearInterval(timer);
-  }, [isPaused]);
+    return () => window.clearInterval(timer)
+  }, [isPaused])
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current
+    if (!section) return undefined
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '[data-advisor-card]',
+        { opacity: 0, y: 34 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 72%',
+          },
+        },
+      )
+
+      gsap.fromTo(
+        '[data-phone-stage]',
+        { opacity: 0, x: 48 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 70%',
+          },
+        },
+      )
+    }, section)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section className="bg-slate-50 py-20 px-6">
-      <div className="max-w-7xl mx-auto space-y-20">
+    <section ref={sectionRef} className="section-space px-4 sm:px-6 lg:px-8">
+      <div className="container space-y-6">
+        <div className="scene-panel relative overflow-hidden p-6 sm:p-8">
+          <BackgroundLines />
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <span className="section-kicker">Trusted guidance</span>
+              <h2 className="section-heading mt-5">
+                Support shaped by people who understand care, trust, and delivery
+              </h2>
+            </div>
+            <p className="section-copy max-w-2xl">
+              The advisory presence is now treated as part of the product story, giving the platform more credibility and warmth without overwhelming the visual rhythm.
+            </p>
+          </div>
 
-        {/* BOARD OF ADVISORS */}
-        <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#0f4f24]">
-            Board of Advisors
-          </h2>
-
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-            {advisors.map((advisor, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.2 }}
-                viewport={{ once: true }}
-                className="flex flex-col items-center"
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {advisors.map((advisor) => (
+              <motion.article
+                key={advisor.name}
+                data-advisor-card
+                whileHover={{ y: -10 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="surface-card group relative flex flex-col items-center p-6 text-center"
               >
-                <motion.div
-                  whileHover={{ scale: 1.08 }}
-                  className="w-40 h-40 rounded-full overflow-hidden border-4 border-green-600 shadow-lg"
-                >
-                  <img
-                    src={advisor.img}
-                    alt={advisor.name}
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
+                <div className="relative mx-auto h-32 w-32 shrink-0 md:h-48 md:w-48">
+                  <div className="absolute inset-0 rounded-full border border-[#3bab35]/10 group-hover:border-[#3bab35]/30 transition-colors duration-500" />
+                  <div className="h-full w-full overflow-hidden rounded-full border-4 border-white bg-slate-50 shadow-inner">
+                    <img
+                      src={advisor.img}
+                      alt={advisor.name}
+                      className="h-full w-full object-cover grayscale-[0.1] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                    />
+                  </div>
+                </div>
 
-                <h3 className="mt-4 text-lg font-semibold text-[#0f4f24]">
+                <h3 className="mt-6 text-lg font-bold leading-tight text-[#0f4f24] group-hover:text-[#3bab35] transition-colors">
                   {advisor.name}
                 </h3>
-                <p className="text-sm text-slate-500 text-center">
-                  {advisor.role}
+                <p className="mt-2 text-[11px] font-bold uppercase tracking-wider text-[#3bab35]/70">
+                  {advisor.role.split('&')[0]}
                 </p>
-
-                <div className="mt-3 w-12 h-[2px] bg-green-600" />
-              </motion.div>
+                <p className="mt-1 text-[11px] font-medium text-slate-500">
+                  {advisor.role.split('&')[1] ? `& ${advisor.role.split('&')[1]}` : ''}
+                </p>
+              </motion.article>
             ))}
           </div>
         </div>
 
-        {/* FEATURES SECTION */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="scene-panel relative overflow-hidden p-6 sm:p-10 lg:p-16">
+          <BackgroundLines />
+          <BreathingOrb className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#3bab35]/10 blur-[100px]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,171,53,0.05),transparent_60%)]" />
 
-          {/* IMAGE SLIDER */}
-          <div
-            className="relative w-full max-w-lg mx-auto overflow-hidden"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={index}
-                src={screens[index]}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
-                transition={{
-                  duration: 0.6,
-                  ease: "easeInOut"
-                }}
-                className="rounded-3xl shadow-2xl absolute w-full"
-              />
-            </AnimatePresence>
-
-            {/* ! spacer */}
-            <img
-              src={screens[0]}
-              className="invisible w-full rounded-3xl"
-              alt=""
-            />
-          </div>
-
-          {/* TEXT */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
-            <h3 className="text-3xl font-bold text-[#0f4f24]">Features</h3>
-
-            <p className="text-[#0f4f24] leading-7">
-              The Soul Whispers app aims to provide a comprehensive mental health therapy experience through advanced AI-driven assessment, personalized therapy recommendations, and user-friendly features for seamless interaction between users and therapists. By focusing on user comfort, privacy, and effective therapy matching, the app aims to improve mental well-being and support users on their journey to better mental health.
+          {/* Intro Section */}
+          <div className="relative mx-auto max-w-3xl text-center">
+            <span className="section-kicker">App experience</span>
+            <h3 className="section-heading mt-6 text-3xl sm:text-4xl lg:text-5xl">
+              Product moments designed to feel lighter, clearer, and more reassuring
+            </h3>
+            <p className="section-copy mx-auto mt-6 max-w-2xl text-lg text-slate-500">
+              The visual flow uses larger breathing spaces, stronger information hierarchy, and calmer interaction patterns so people can stay focused on getting support.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 text-md text-[#0f4f24]">
-              <ul className="space-y-2">
-                <li>• AI Assessment</li>
-                <li>• Therapy Recommendation</li>
-                <li>• Profile Management</li>
-              </ul>
-              <ul className="space-y-2">
-                <li>• Appointment Booking</li>
-                <li>• Daily Feedback</li>
-                <li>• Health Coach</li>
-              </ul>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <motion.a
+                whileHover={{ y: -4, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://apps.apple.com/pk/app/soul-whispers/id6514315560"
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-2xl bg-white p-2 shadow-[0_20px_40px_rgba(15,79,36,0.12)] transition-shadow hover:shadow-[0_20px_50px_rgba(15,79,36,0.2)]"
+              >
+                <img src={appStoreImg} alt="Download on the App Store" className="h-12" />
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -4, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://play.google.com/store/apps/details?id=com.innovadorsolutions.soulwispers"
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-2xl bg-white p-2 shadow-[0_20px_40px_rgba(15,79,36,0.12)] transition-shadow hover:shadow-[0_20px_50px_rgba(15,79,36,0.2)]"
+              >
+                <img src={googlePlayImg} alt="Get it on Google Play" className="h-12" />
+              </motion.a>
+            </div>
+          </div>
+
+          {/* Interactive Layout */}
+          <div className="relative mt-20 grid items-center gap-10 lg:grid-cols-[1fr_auto_1fr] lg:gap-16">
+
+            {/* Left Capabilities */}
+            <div className="order-2 flex flex-col gap-6 lg:order-1">
+              {capabilities.slice(0, 2).map(({ title, description, icon: Icon }, i) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ scale: 1.03, x: 10 }}
+                  className="group relative overflow-hidden rounded-[28px] border border-[#3bab35]/10 bg-white/60 p-8 shadow-sm backdrop-blur-md transition-all hover:border-[#3bab35]/30 hover:bg-white hover:shadow-[0_20px_40px_rgba(15,79,36,0.08)]"
+                >
+                  <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#3bab35]/5 blur-3xl transition-all group-hover:bg-[#3bab35]/15" />
+                  <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#3bab35]/10 to-[#0f4f24]/5 text-[#0f4f24]">
+                    <Icon size={24} strokeWidth={1.5} />
+                  </div>
+                  <h4 className="relative z-10 mt-5 text-xl font-bold text-[#0f4f24]">{title}</h4>
+                  <p className="relative z-10 mt-3 text-[0.95rem] leading-relaxed text-slate-600">{description}</p>
+                </motion.div>
+              ))}
             </div>
 
-            {/* store buttons */}
-            <div className="flex justify-start gap-4 mt-8">
-              <motion.a
-                href="https://apps.apple.com/pk/app/soul-whispers/id6514315560"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                target="_blank"
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-              >
-                <img src={appStoreImg} className="h-10" />
-              </motion.a>
-              <motion.a
-                href="https://play.google.com/store/apps/details?id=com.innovadorsolutions.soulwispers"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                target="_blank"
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-              >
-                <img src={googlePlayImg} className="h-10" />
-              </motion.a>
+            {/* Center Phone Showcase */}
+            <motion.div
+              data-phone-stage
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="order-1 flex justify-center lg:order-2"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
+              <div className="relative flex w-full max-w-[350px] xl:max-w-[380px] items-center justify-center">
+                {/* Magnetic glow behind phone */}
+                <motion.div
+                  animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute inset-0 rounded-full bg-[#3bab35]/20 blur-[80px]"
+                />
+
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={index}
+                    src={screens[index]}
+                    alt={`App screen ${index + 1}`}
+                    initial={{ opacity: 0, y: 40, scale: 0.92, filter: 'blur(8px)' }}
+                    animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, y: -40, scale: 0.92, filter: 'blur(8px)' }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative z-10 w-full rounded-[40px] border-[6px] border-white/80 shadow-[0_40px_100px_rgba(15,79,36,0.25)] will-change-transform"
+                  />
+                </AnimatePresence>
+              </div>
+            </motion.div>
+
+            {/* Right Capabilities */}
+            <div className="order-3 flex flex-col gap-6">
+              {capabilities.slice(2, 4).map(({ title, description, icon: Icon }, i) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ scale: 1.03, x: -10 }}
+                  className="group relative overflow-hidden rounded-[28px] border border-[#3bab35]/10 bg-white/60 p-8 shadow-sm backdrop-blur-md transition-all hover:border-[#3bab35]/30 hover:bg-white hover:shadow-[0_20px_40px_rgba(15,79,36,0.08)]"
+                >
+                  <div className="absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-[#3bab35]/5 blur-3xl transition-all group-hover:bg-[#3bab35]/15" />
+                  <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#3bab35]/10 to-[#0f4f24]/5 text-[#0f4f24]">
+                    <Icon size={24} strokeWidth={1.5} />
+                  </div>
+                  <h4 className="relative z-10 mt-5 text-xl font-bold text-[#0f4f24]">{title}</h4>
+                  <p className="relative z-10 mt-3 text-[0.95rem] leading-relaxed text-slate-600">{description}</p>
+                </motion.div>
+              ))}
             </div>
-          </motion.div>
+
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

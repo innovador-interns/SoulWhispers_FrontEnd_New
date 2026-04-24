@@ -1858,4 +1858,20 @@ export const limitedBlogs = [
     image: blog4,
     excerpt: 'Discover how writing your thoughts can support clarity and emotional healing.',
   },
+  {
+    id: 'building-healthy-habits',
+    title: 'Building Healthy Habits',
+    category: 'Lifestyle',
+    date: 'April 20, 2023',
+    image: blog5,
+    excerpt: 'A practical guide to forming habits that support wellness and consistency.',
+  },
+  {
+    id: 'meditation-for-better-sleep',
+    title: 'Meditation for Better Sleep',
+    category: 'Mental Health',
+    date: 'April 15, 2023',
+    image: blog6,
+    excerpt: 'Sleep-focused meditation routines that help you unwind and rest more deeply.',
+  }
 ]

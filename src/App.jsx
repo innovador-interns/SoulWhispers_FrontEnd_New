@@ -9,6 +9,8 @@ import FaqsPage from './pages/FaqsPage'
 import ContactPage from './pages/ContactPage'
 import NotFoundPage from './pages/NotFoundPage'
 import { Toaster } from 'sonner'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import TermsAndConditionsPage from './pages/TermsAndConditionsPage'
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
             <Route path="blog/:id" element={<BlogDetailPage />} />
             <Route path="faqs" element={<FaqsPage />} />
             <Route path="contact" element={<ContactPage />} />
+            <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="terms-and-conditions" element={<TermsAndConditionsPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

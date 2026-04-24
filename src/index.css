@@ -7,16 +7,33 @@
 @layer base {
   :root {
     font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #0f172a;
+    background:
+      radial-gradient(circle at top, rgba(59, 171, 53, 0.12), transparent 30%),
+      linear-gradient(180deg, #f6fbf6 0%, #edf8ef 42%, #f9fcf9 100%);
+    --sw-primary-deep: #0f4f24;
+    --sw-primary: #266623;
+    --sw-accent: #3bab35;
+    --sw-accent-soft: #dff3df;
+    --sw-surface: rgba(255, 255, 255, 0.7);
+    --sw-border: rgba(15, 79, 36, 0.12);
+    --sw-shadow: 0 24px 80px rgba(18, 62, 27, 0.12);
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
 
   body {
     margin: 0;
     min-height: 100vh;
     overflow-x: hidden;
+    overflow-anchor: none;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(59, 171, 53, 0.12), transparent 24%),
+      radial-gradient(circle at 80% 20%, rgba(38, 102, 35, 0.08), transparent 24%),
+      linear-gradient(180deg, #f6fbf6 0%, #edf7ef 40%, #f8fbf8 100%);
+    color: #0f172a;
   }
 
   *, *::before, *::after {
@@ -25,5 +42,126 @@
 
   #root {
     min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(59, 171, 53, 0.22);
+    color: #0f4f24;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 120px 120px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(15, 79, 36, 0.06);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(38, 102, 35, 0.65), rgba(59, 171, 53, 0.5));
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-space {
+    @apply md:py-12 sm:py-20;
+  }
+
+  .section-stack {
+    @apply space-y-6 sm:space-y-8;
+  }
+
+  .scene-shell {
+    @apply container relative;
+  }
+
+  .scene-panel {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.62));
+    border: 1px solid var(--sw-border);
+    box-shadow: var(--sw-shadow);
+    backdrop-filter: blur(24px);
+    border-radius: 28px;
+  }
+
+  /* .surface-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.62));
+    border: 1px solid var(--sw-border);
+    box-shadow: var(--sw-shadow);
+    backdrop-filter: blur(24px);
+    border-radius: 28px;
+  } */
+
+  .surface-card-hover {
+    transition:
+      transform 280ms ease,
+      box-shadow 280ms ease,
+      border-color 280ms ease,
+      background-color 280ms ease;
+  }
+
+  .surface-card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 28px 70px rgba(18, 62, 27, 0.14);
+    border-color: rgba(59, 171, 53, 0.2);
+  }
+
+  .section-kicker {
+    @apply inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.35em];
+    border-color: rgba(15, 79, 36, 0.16);
+    background: rgba(255, 255, 255, 0.58);
+    color: var(--sw-primary);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #0f4f24 0%, #266623 55%, #3bab35 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .section-heading {
+    @apply text-3xl font-semibold leading-tight text-[#0f4f24] sm:text-4xl;
+  }
+
+  .section-copy {
+    @apply text-base leading-7 text-slate-600;
+  }
+
+  /* Floating orb animations */
+  .float-slow {
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  .float-med {
+    animation: float-med 6s ease-in-out infinite;
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(120deg); }
+    66% { transform: translateY(10px) rotate(240deg); }
+  }
+
+  @keyframes float-med {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(180deg); }
   }
 }

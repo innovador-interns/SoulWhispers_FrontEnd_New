@@ -6,4 +6,6 @@ export const routes = [
   { path: '/blogs', label: 'Blogs', component: 'BlogsPage' },
   { path: '/faqs', label: 'FAQs', component: 'FaqsPage' },
   { path: '/contact', label: 'Contact', component: 'ContactPage' },
+  { path: '/privacy-policy', label: 'Privacy Policy', component: 'PrivacyPolicyPage' },
+  { path: '/terms-and-conditions', label: 'Terms and Conditions', component: 'TermsAndConditionsPage' },
 ]

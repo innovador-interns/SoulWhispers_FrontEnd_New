@@ -1,109 +1,66 @@
 import { motion } from 'framer-motion'
 import testimonialImage from '../../assets/iqbal-sheikh.jpg'
 
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-}
-
-const item = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut',
-    },
-  },
-}
-
 function TestimonialSection() {
   return (
-    <section className="bg-gradient-to-b from-slate-50 to-white px-6 py-20">
-      <div className="mx-auto max-w-7xl">
+    <section className="section-space !mt-0 px-4 pb-20 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
 
-        {/* HEADER */}
         <motion.div
-          variants={item}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mx-auto mb-16 max-w-3xl text-center"
-        >
-          <p className="text-sm uppercase tracking-[0.35em] text-[#3bab35]">
-            Testimonials
-          </p>
-
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#0f4f24] leading-tight">
-            Trusted by professionals for meaningful mental health support
-          </h2>
-        </motion.div>
-
-        {/* CARD */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid gap-10 rounded-[32px] bg-white/80 backdrop-blur-xl p-8 md:p-10 shadow-[0_20px_80px_rgba(0,0,0,0.08)] border border-white/40 lg:grid-cols-[320px_1fr]"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="scene-panel flex flex-col lg:flex-row items-center gap-10 overflow-hidden p-6 sm:p-8 lg:p-10"
         >
 
-          {/* IMAGE */}
-          <motion.div
-            variants={item}
-            className="flex items-center justify-center"
-          >
-            <div className="relative overflow-hidden rounded-[28px]">
+          {/* IMAGE SIDE (SMALL + CONTROLLED) */}
+          <div className="flex justify-center lg:justify-start">
+            <div className="relative h-[240px] w-[320px] overflow-hidden rounded-[24px] sm:h-[320px]">
               <img
                 src={testimonialImage}
                 alt="Iqbal Yousuf Shaikh"
-                className="h-80 w-80 object-cover rounded-[28px] transform-gpu transition duration-700 hover:scale-105"
+                className="h-full w-full object-contain"
               />
 
-              {/* subtle glow */}
-              <div className="absolute inset-0 rounded-[28px] ring-1 ring-black/5" />
+              {/* <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent,rgba(15,79,36,0.35))]" /> */}
             </div>
-          </motion.div>
+          </div>
 
-          {/* CONTENT */}
-          <motion.div
-            variants={item}
-            className="flex flex-col justify-between"
-          >
+          {/* CONTENT SIDE (BALANCED WITH SMALL IMAGE) */}
+          <div className="flex h-full flex-col justify-center">
+
             <div>
-              {/* QUOTE ICON */}
-              <div className="text-5xl text-[#3bab35] opacity-20 leading-none">
+              <span className="section-kicker">Testimonial</span>
+
+              <div className="mt-5 text-6xl leading-none text-[#3bab35]/20">
                 “
               </div>
 
-              <p className="mt-0 text-md md:text-lg leading-relaxed text-slate-700">
-                As I see SoulWhispers would be a game-changer in mental health management. As a Tech person I could see the innovation and implementation of Artificial Intelligence features make this app unique and catering to today’s needs. This is going to be a great service for remote areas where physical availability of therapist is challenge. The intuitive interface and powerful features allow us to focus on what matters most. Highly recommended, not only for those who are in need of mental health diagnosis and therapy but also for the Counsellors and Therapists.
+              <p className="mt-3 text-base leading-7 text-slate-700 sm:text-lg">
+                As I see SoulWhispers would be a game-changer in mental health management. The innovation and implementation of artificial intelligence features make this app especially relevant to today’s needs. It has the potential to be a meaningful service for remote areas where access to therapists is limited, while offering an interface and feature set that feel intuitive and genuinely helpful for both clients and professionals.
               </p>
             </div>
 
             {/* AUTHOR */}
-            <div className="mt-10 flex items-center gap-4 border-t pt-6">
-              <div className="h-12 w-12 rounded-full bg-[#3bab35]/10 flex items-center justify-center text-[#3bab35] font-semibold">
+            <div className="mt-8 flex items-center gap-4 border-t border-[#0f4f24]/10 pt-5">
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#3bab35]/12 font-semibold text-[#0f4f24]">
                 IY
               </div>
 
               <div>
-                <p className="text-lg font-semibold text-slate-900">
+                <p className="text-base font-semibold text-[#0f4f24]">
                   Iqbal Yousuf Shaikh
                 </p>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-600">
                   Innovador Solutions
                 </p>
               </div>
-            </div>
-          </motion.div>
 
+            </div>
+
+          </div>
         </motion.div>
 
       </div>

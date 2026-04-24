@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion'
-import { fadeInUp } from '../lib/animations'
 import HeroSlider from '../components/home/HeroSlider'
 import FeatureList from '../components/home/FeatureList'
 import BlogPreview from '../components/home/BlogPreview'
@@ -8,48 +6,19 @@ import TestimonialSection from '../components/home/TestimonialSection'
 
 function HomePage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <div>
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          <HeroSlider />
-        </motion.div>
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          <FeatureList />
-        </motion.div>
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          <AdvisorSection />
-        </motion.div>
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          <BlogPreview />
-        </motion.div>
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          <TestimonialSection />
-        </motion.div>
+    <div className="relative min-h-screen overflow-hidden text-slate-900">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[-8rem] top-20 h-72 w-72 rounded-full bg-[#3bab35]/10 blur-3xl" />
+        <div className="absolute right-[-8rem] top-[32rem] h-80 w-80 rounded-full bg-[#0f4f24]/8 blur-3xl" />
+        <div className="absolute left-[30%] top-[60rem] h-56 w-56 rounded-full bg-[#266623]/6 blur-3xl" />
+      </div>
+
+      <div className="section-stack">
+        <HeroSlider />
+        <FeatureList />
+        <AdvisorSection />
+        <BlogPreview />
+        <TestimonialSection />
       </div>
     </div>
   )
