@@ -2,79 +2,7 @@ import { motion } from 'framer-motion'
 import BreathingOrb from '../../ui/BreathingOrb'
 import { PillarCard } from './FeatureComponents'
 import { supportPillars, ease } from './feature-data'
-
-function AnimatedBorder() {
-  return (
-    <div className="pointer-events-none absolute inset-0 rounded-[28px] overflow-hidden">
-      {/* Soft glowing border frame */}
-      <motion.div
-        className="absolute inset-0 rounded-[28px] border border-[#3bab35]/20"
-        animate={{
-          opacity: [0.5, 0.8, 0.5],
-          boxShadow: [
-            'inset 0 0 20px rgba(59,171,53,0.1)',
-            'inset 0 0 30px rgba(59,171,53,0.2)',
-            'inset 0 0 20px rgba(59,171,53,0.1)'
-          ]
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: 'easeInOut'
-        }}
-      />
-
-      {/* Corner accent glow dots - subtle pulsing */}
-      <motion.div
-        className="absolute -top-2 -left-2 w-5 h-5 bg-[#3bab35]/10 rounded-full blur-lg"
-        animate={{
-          opacity: [0.2, 0.5, 0.2]
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut'
-        }}
-      />
-      <motion.div
-        className="absolute -top-2 -right-2 w-5 h-5 bg-[#3bab35]/10 rounded-full blur-lg"
-        animate={{
-          opacity: [0.2, 0.5, 0.2]
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1
-        }}
-      />
-      <motion.div
-        className="absolute -bottom-2 -right-2 w-5 h-5 bg-[#3bab35]/10 rounded-full blur-lg"
-        animate={{
-          opacity: [0.2, 0.5, 0.2]
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 2
-        }}
-      />
-      <motion.div
-        className="absolute -bottom-2 -left-2 w-5 h-5 bg-[#3bab35]/10 rounded-full blur-lg"
-        animate={{
-          opacity: [0.2, 0.5, 0.2]
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1.5
-        }}
-      />
-    </div>
-  )
-}
+import BackgroundLines from '../../ui/BackgroundLines'
 
 export default function WellnessIntro() {
   return (
@@ -85,8 +13,7 @@ export default function WellnessIntro() {
       transition={{ duration: 0.85, ease: ease.out }}
       className="scene-panel relative overflow-hidden p-7 sm:p-10"
     >
-      <AnimatedBorder />
-
+      <BackgroundLines />
       <BreathingOrb className="absolute -left-10 top-10 h-48 w-48 rounded-full bg-[#3bab35]/14 blur-[70px]" />
       <BreathingOrb className="absolute right-10 bottom-0 h-32 w-32 rounded-full bg-[#3bab35]/08 blur-[50px]" duration={11} delay={2} />
 

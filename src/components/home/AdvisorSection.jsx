@@ -1,22 +1,18 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, memo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Calendar, MessageCircleHeart, ShieldCheck, Stars } from 'lucide-react'
 import sheebaImg from '../../assets/sheeba-farhan.png'
 import imranImg from '../../assets/Imran.png'
 import beenishImg from '../../assets/Beenish.png'
 import nasreenImg from '../../assets/maam-nasreen.png'
-import tahirImg from '../../assets/tahir-aziz.png'
-import screen1 from '../../assets/screen1.jpg'
-import screen2 from '../../assets/screen2.jpg'
-import screen3 from '../../assets/screen3.jpg'
-import screen4 from '../../assets/screen4.jpg'
-import screen5 from '../../assets/screen5.jpg'
-import screen6 from '../../assets/screen6.jpg'
 import appStoreImg from '../../assets/app-store.png'
 import googlePlayImg from '../../assets/google-play.png'
 import BreathingOrb from '../ui/BreathingOrb'
 import BackgroundLines from '../ui/BackgroundLines'
-import { gsap } from '../../lib/gsap'
+
+// Memoize background components to prevent re-renders during state changes
+const MemoizedBackgroundLines = memo(BackgroundLines)
+const MemoizedBreathingOrb = memo(BreathingOrb)
 
 const advisors = [
   {
@@ -39,14 +35,28 @@ const advisors = [
     role: 'COO at Innovador Solutions',
     img: nasreenImg,
   },
-  // {
-  //   name: 'Tahir Aziz',
-  //   role: 'MD at Innovador Solutions',
-  //   img: tahirImg,
-  // },
 ]
 
-const screens = [screen1, screen2, screen3, screen4, screen5, screen6]
+const screens = [
+  '../../assets/screen1.jpg',
+  '../../assets/screen2.jpg',
+  '../../assets/screen3.jpg',
+  '../../assets/screen4.jpg',
+  '../../assets/screen5.jpg',
+  '../../assets/screen6.jpg',
+]
+
+// Note: In a real app, these imports would be handled at the top, 
+// but I'm keeping the logic consistent with how assets were being used.
+// Actually, they were imported as screen1, screen2, etc. I'll stick to that.
+import screen1 from '../../assets/screen1.jpg'
+import screen2 from '../../assets/screen2.jpg'
+import screen3 from '../../assets/screen3.jpg'
+import screen4 from '../../assets/screen4.jpg'
+import screen5 from '../../assets/screen5.jpg'
+import screen6 from '../../assets/screen6.jpg'
+
+const screensArray = [screen1, screen2, screen3, screen4, screen5, screen6]
 
 const capabilities = [
   {
@@ -80,57 +90,31 @@ export default function AdvisorSection() {
     if (isPaused) return undefined
 
     const timer = window.setInterval(() => {
-      setIndex((prev) => (prev + 1) % screens.length)
+      setIndex((prev) => (prev + 1) % screensArray.length)
     }, 3500)
 
     return () => window.clearInterval(timer)
   }, [isPaused])
 
-  useLayoutEffect(() => {
-    const section = sectionRef.current
-    if (!section) return undefined
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '[data-advisor-card]',
-        { opacity: 0, y: 34 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 72%',
-          },
-        },
-      )
-
-      gsap.fromTo(
-        '[data-phone-stage]',
-        { opacity: 0, x: 48 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 70%',
-          },
-        },
-      )
-    }, section)
-
-    return () => ctx.revert()
-  }, [])
+  // Entrance variants for Advisor Cards
+  const cardVariants = {
+    hidden: { opacity: 0, y: 34 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.12,
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    }),
+  }
 
   return (
     <section ref={sectionRef} className="section-space px-4 sm:px-6 lg:px-8">
       <div className="container space-y-6">
         <div className="scene-panel relative overflow-hidden p-6 sm:p-8">
-          <BackgroundLines />
+          <MemoizedBackgroundLines />
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <span className="section-kicker">Trusted guidance</span>
@@ -144,12 +128,15 @@ export default function AdvisorSection() {
           </div>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {advisors.map((advisor) => (
+            {advisors.map((advisor, i) => (
               <motion.article
                 key={advisor.name}
-                data-advisor-card
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-50px' }}
+                variants={cardVariants}
                 whileHover={{ y: -10 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="surface-card group relative flex flex-col items-center p-6 text-center"
               >
                 <div className="relative mx-auto h-32 w-32 shrink-0 md:h-48 md:w-48">
@@ -158,6 +145,7 @@ export default function AdvisorSection() {
                     <img
                       src={advisor.img}
                       alt={advisor.name}
+                      loading="lazy"
                       className="h-full w-full object-cover grayscale-[0.1] transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
                     />
                   </div>
@@ -178,8 +166,8 @@ export default function AdvisorSection() {
         </div>
 
         <div className="scene-panel relative overflow-hidden p-6 sm:p-10 lg:p-16">
-          <BackgroundLines />
-          <BreathingOrb className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#3bab35]/10 blur-[100px]" />
+          <MemoizedBackgroundLines />
+          <MemoizedBreathingOrb className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#3bab35]/10 blur-[100px]" />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,171,53,0.05),transparent_60%)]" />
 
           {/* Intro Section */}
@@ -226,7 +214,7 @@ export default function AdvisorSection() {
                   key={title}
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.8, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ scale: 1.03, x: 10 }}
                   className="group relative overflow-hidden rounded-[28px] border border-[#3bab35]/10 bg-white/60 p-8 shadow-sm backdrop-blur-md transition-all hover:border-[#3bab35]/30 hover:bg-white hover:shadow-[0_20px_40px_rgba(15,79,36,0.08)]"
@@ -243,16 +231,15 @@ export default function AdvisorSection() {
 
             {/* Center Phone Showcase */}
             <motion.div
-              data-phone-stage
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="order-1 flex justify-center lg:order-2"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
             >
-              <div className="relative flex w-full max-w-[350px] xl:max-w-[380px] items-center justify-center">
+              <div className="relative flex w-full max-w-[350px] xl:max-w-[380px] items-center justify-center min-h-[500px] sm:min-h-[600px]">
                 {/* Magnetic glow behind phone */}
                 <motion.div
                   animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
@@ -263,7 +250,7 @@ export default function AdvisorSection() {
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={index}
-                    src={screens[index]}
+                    src={screensArray[index]}
                     alt={`App screen ${index + 1}`}
                     initial={{ opacity: 0, y: 40, scale: 0.92, filter: 'blur(8px)' }}
                     animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
@@ -282,7 +269,7 @@ export default function AdvisorSection() {
                   key={title}
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.8, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ scale: 1.03, x: -10 }}
                   className="group relative overflow-hidden rounded-[28px] border border-[#3bab35]/10 bg-white/60 p-8 shadow-sm backdrop-blur-md transition-all hover:border-[#3bab35]/30 hover:bg-white hover:shadow-[0_20px_40px_rgba(15,79,36,0.08)]"

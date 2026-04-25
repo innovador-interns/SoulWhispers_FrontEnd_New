@@ -3,10 +3,12 @@ import { Quote, ArrowRight } from 'lucide-react'
 import BreathingOrb from '../../ui/BreathingOrb'
 import aemahPhoto from '../../../assets/aemah-iqbal.png'
 import { ease } from './feature-data'
+import BackgroundLines from '../../ui/BackgroundLines'
 
 export default function FoundersNote({ founderRef, readMore, setReadMore }) {
   return (
     <div ref={founderRef} className="scene-panel relative overflow-hidden p-7 sm:p-10 lg:p-12">
+      <BackgroundLines />
       <BreathingOrb className="absolute left-0 top-0 h-64 w-64 rounded-full bg-[#3bab35]/07 blur-[80px]" duration={14} />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(59,171,53,0.05),transparent_50%)]" />
 

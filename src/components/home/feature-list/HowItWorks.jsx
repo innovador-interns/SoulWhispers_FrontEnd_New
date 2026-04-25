@@ -4,12 +4,14 @@ import { TimelineDot, FeatureCard, StepPill } from './FeatureComponents'
 import { featureSteps, ease } from './feature-data'
 import { ScrollTrigger } from '../../../lib/gsap'
 import { gsap } from '../../../lib/gsap'
+import BackgroundLines from '../../ui/BackgroundLines'
 
 export default function HowItWorks({ storytellingRef, activeIndex, updateActiveIndex, activeIndexRef }) {
   const activeStep = featureSteps[activeIndex]
 
   return (
     <div ref={storytellingRef} className="scene-panel overflow-hidden p-7 sm:p-10">
+      <BackgroundLines />
       <div className="mb-10 flex items-end justify-between gap-6">
         <div>
           <div className="flex items-center gap-3">

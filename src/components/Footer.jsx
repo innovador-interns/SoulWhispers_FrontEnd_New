@@ -76,7 +76,7 @@ function FooterLink({ label, to, index }) {
     >
       <Link
         to={to}
-        className="group relative inline-flex items-center gap-1.5 text-sm text-green-100/70 hover:text-[#3bab35] transition-colors duration-300"
+        className="group relative inline-flex items-center gap-1.5 text-[14px] text-green-100/70 hover:text-[#3bab35] transition-colors duration-300"
       >
         <motion.span
           className="absolute -left-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#3bab35] opacity-0 group-hover:opacity-100"
@@ -102,7 +102,7 @@ function WellnessTag({ text, index }) {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.35 + index * 0.07 }}
-      className="group flex items-center gap-2 text-sm text-green-100/70 hover:text-green-300 cursor-default transition-colors duration-300"
+      className="group flex items-center gap-2 text-[14px] text-green-100/70 hover:text-green-300 cursor-default transition-colors duration-300"
     >
       <motion.span
         animate={{ rotate: [0, 360] }}
@@ -137,18 +137,19 @@ function AppButton({ href, src, alt, delay }) {
 // ─── Contact row ──────────────────────────────────────────────────────────
 function ContactRow({ icon: Icon, text, href, delay }) {
   const el = (
-    <motion.div
+    <motion.a
       initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay }}
-      className="group mt-4 flex items-center gap-3 text-sm text-green-100/70 hover:text-green-200 transition-colors duration-300"
+      className="group mt-4 flex items-center gap-3 text-[14px] text-green-100/70 hover:text-green-200 transition-colors duration-300"
+      href='tel:+923324666823' 
     >
       <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#3bab35]/10 border border-[#3bab35]/20 flex items-center justify-center group-hover:bg-[#3bab35]/20 transition-colors duration-300">
         <Icon size={12} className="text-[#3bab35]" />
       </span>
       {text}
-    </motion.div>
+    </motion.a>
   )
   return href
     ? <a href={href} target="_blank" rel="noreferrer">{el}</a>
@@ -173,7 +174,7 @@ function MarqueeText() {
     <div className="overflow-hidden border-t border-b border-white/5 py-4 mb-14 sm:mb-18">
       <div ref={ref} className="flex whitespace-nowrap" style={{ width: 'max-content' }}>
         {[...Array(4)].map((_, i) => (
-          <span key={i} className="text-[13px] font-bold uppercase tracking-[0.3em] text-white/10 mr-8">
+          <span key={i} className="text-[13px] font-bold uppercase tracking-[0.3em] text-white/40 mr-8">
             {text}
           </span>
         ))}
@@ -352,7 +353,7 @@ function Footer() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-sm text-green-100/50 leading-relaxed max-w-xs mb-8"
+              className="text-[14px] text-green-100/50 leading-relaxed max-w-xs mb-8"
             >
               A calmer digital space for therapy access, emotional reflection, and mindful daily support.
             </motion.p>

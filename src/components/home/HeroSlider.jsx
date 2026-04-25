@@ -25,7 +25,7 @@ const slides = [
       { value: '2.4k+', label: 'Lives touched' },
     ],
     cardQuote: 'Slower interactions, clearer pathways, and support that feels gentle, calming, and truly reassuring.',
-    tags: ['Therapist support', 'Private & intentional', '24/7 care'],
+    tags: ['Therapist support', 'Private & intentional', '24/7 care service'],
     accent: 'from-[#0a2e12] via-[#1a5c2a] to-[#3bab35]',
   },
   {
@@ -40,16 +40,16 @@ const slides = [
       { value: 'Daily', label: 'Gentle reminders' },
       { value: '100%', label: 'Evidence-aware' },
     ],
-    cardQuote: 'Personalized routines and evidence-aware wellness built gently around your pace.',
+    cardQuote: 'Personalized routines and evidence-aware wellness built gently and thoughtfully around your pace.',
     tags: ['Personalized routines', 'Gentle reminders', 'Evidence-aware'],
     accent: 'from-[#0f2e1a] via-[#1e6b32] to-[#3bab35]',
   },
   {
     badge: 'Personal Guidance',
-    headline: ['Gentle,', 'personalized support', 'for every soul'],
+    headline: ['Gentle,', 'personalized support for', 'every soul'],
     italicLine: 1,
     description:
-      'From assessments to tailored recommendations, every interaction is designed to feel calm, clear, and safe during difficult moments.',
+      'From assessments to tailored recommendations, every interaction is designed to feel calm, clear, and safe in difficult moments.',
     image: dietitianImg,
     stats: [
       { value: '∞', label: 'Tailored insights' },
@@ -62,7 +62,7 @@ const slides = [
   },
   {
     badge: 'Daily Restoration',
-    headline: ['Build restorative', 'habits that actually', 'last'],
+    headline: ['Build restorative', 'habits that', 'actually last'],
     italicLine: 2,
     description:
       'Create a rhythm of reflection, action, and support with tools that make emotional well-being feel approachable and sustainable.',
@@ -197,7 +197,7 @@ function AnimatedHeadline({ lines, italicLine, key: slideKey }) {
                 <div key={`${slideKey}-${li}-${idx}`} className="overflow-hidden">
                   <motion.span
                     className={`inline-block will-change-transform font-semibold tracking-[-0.03em] text-white
-                      ${li === italicLine ? 'italic text-[#7dd87a]' : ''}
+                      ${li === italicLine ? 'bold text-[#7dd87a]' : ''}
                       text-5xl sm:text-5xl lg:text-[4.2rem]`}
                     style={{ display: 'inline-block', transformOrigin: 'bottom center', transformStyle: 'preserve-3d' }}
                     custom={idx}
@@ -243,6 +243,7 @@ function ProgressRing({ progressValue, size = 48, stroke = 1.5 }) {
 function HeroSlider() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const [direction, setDirection] = useState(1)
 
   const navigate = useNavigate()
@@ -253,6 +254,8 @@ function HeroSlider() {
   const progressValue = useMotionValue(0)
   const DURATION = 7000
 
+  const isEffectivelyPaused = isPaused || !isVisible
+
   const slide = slides[activeIndex]
 
   // ── Magnetic CTA ─────────────────────────────────────────────────────────────
@@ -262,7 +265,7 @@ function HeroSlider() {
   useEffect(() => {
     progressTweenRef.current?.kill();
 
-    if (isPaused) {
+    if (isEffectivelyPaused) {
       return undefined;
     }
 
@@ -276,16 +279,29 @@ function HeroSlider() {
     });
 
     return () => progressTweenRef.current?.kill();
-  }, [activeIndex, isPaused])
+  }, [activeIndex, isEffectivelyPaused])
 
   // ── Auto advance ──────────────────────────────────────────────────────────────
   useEffect(() => {
-    if (isPaused) return
+    if (isEffectivelyPaused) return
     const timer = setTimeout(() => {
       goTo((activeIndex + 1) % slides.length, 1)
     }, DURATION)
     return () => clearTimeout(timer)
-  }, [activeIndex, isPaused])
+  }, [activeIndex, isEffectivelyPaused])
+
+  useEffect(() => {
+    const node = sectionRef.current
+    if (!node) return undefined
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
 
   // ── GSAP entrance + parallax ──────────────────────────────────────────────────
   useLayoutEffect(() => {
@@ -353,7 +369,7 @@ function HeroSlider() {
   return (
     <section
       ref={sectionRef}
-      className="section-space relative overflow-hidden px-4 pb-0 pt-6 sm:px-6 lg:px-8"
+      className="section-space relative overflow-hidden px-4 pb-0 pt-6 sm:px-6 lg:px-8 "
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -674,9 +690,8 @@ function HeroSlider() {
                   onClick={() => goTo(i, i > activeIndex ? 1 : -1)}
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.96 }}
-                  className={`flex items-center gap-3 rounded-full px-3.5 py-2 text-left transition-colors duration-300 ${
-                    i === activeIndex ? 'bg-white/12 text-white' : 'text-white/50 hover:bg-white/8'
-                  }`}
+                  className={`flex items-center gap-3 rounded-full px-3.5 py-2 text-left transition-colors duration-300 ${i === activeIndex ? 'bg-white/12 text-white' : 'text-white/50 hover:bg-white/8'
+                    }`}
                   aria-label={`Go to slide ${i + 1}`}
                 >
                   <motion.span

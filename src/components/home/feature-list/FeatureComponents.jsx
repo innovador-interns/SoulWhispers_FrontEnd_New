@@ -12,11 +12,10 @@ export const StepPill = memo(function StepPill({ step, index, active, onClick })
       whileHover={{ y: -3, scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.28, ease: ease.out }}
-      className={`group relative w-full overflow-hidden rounded-[20px] border p-4 text-left transition-all duration-400 ${
-        active
+      className={`group relative w-full overflow-hidden rounded-[20px] border p-4 text-left transition-all duration-400 ${active
           ? 'border-[#3bab35]/50 bg-gradient-to-br from-[#3bab35]/10 via-[#3bab35]/5 to-transparent shadow-[0_12px_40px_rgba(59,171,53,0.14)]'
           : 'border-[#0f4f24]/10 bg-white/60 hover:border-[#3bab35]/25 hover:bg-white/80'
-      }`}
+        }`}
     >
       {active && (
         <motion.div
@@ -127,11 +126,16 @@ export const FeatureCard = memo(function FeatureCard({ step, index }) {
               alt={step.title}
               className="h-full w-full object-cover"
             />
-            <div className="absolute bottom-6 right-6 z-[2] flex items-center gap-2 rounded-full bg-black/40 px-4 py-2 backdrop-blur-xl border border-white/10">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/90">Step</span>
-              <span className="font-['Cormorant_Garamond',serif] text-2xl font-light text-white">
+            <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 lg:bottom-6 lg:right-6 z-[2] flex items-center gap-1.5 sm:gap-2 rounded-full bg-black/40 px-2.5 py-1.5 sm:px-3 sm:py-1.5 lg:px-4 lg:py-2 backdrop-blur-xl border border-white/10">
+
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white/90">
+                Step
+              </span>
+
+              <span className="font-['Cormorant_Garamond',serif] text-lg sm:text-xl lg:text-2xl font-light text-white">
                 {String(index + 1).padStart(2, '0')}
               </span>
+
             </div>
             <motion.div
               className="absolute inset-x-0 z-[2] h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"

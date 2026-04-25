@@ -337,8 +337,8 @@ function FeatureRow({ feature, index }) {
           className="w-14 h-[3px] rounded-full bg-gradient-to-r from-[#3bab35] to-[#0f4f24]"
         />
 
-        {/* Hover-reveal CTA ghost button */}
-        <motion.button
+        {/* Hover-reveal CTA button */}
+        {/* <motion.button
           initial={{ opacity: 0, y: 8 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.75 }}
@@ -353,7 +353,7 @@ function FeatureRow({ feature, index }) {
           >
             →
           </motion.span>
-        </motion.button>
+        </motion.button> */}
       </motion.div>
 
       {/* Image column */}
