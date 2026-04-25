@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, memo } from 'react'
+﻿import { useEffect, useLayoutEffect, useRef, useState, memo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Calendar, MessageCircleHeart, ShieldCheck, Stars } from 'lucide-react'
 import sheebaImg from '../../assets/sheeba-farhan.png'
@@ -81,10 +81,9 @@ const capabilities = [
   },
 ]
 
-export default function AdvisorSection() {
+const PhoneShowcase = memo(function PhoneShowcase() {
   const [index, setIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
-  const sectionRef = useRef(null)
 
   useEffect(() => {
     if (isPaused) return undefined
@@ -95,6 +94,44 @@ export default function AdvisorSection() {
 
     return () => window.clearInterval(timer)
   }, [isPaused])
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      className="order-1 flex justify-center lg:order-2"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="relative flex w-full max-w-[350px] xl:max-w-[380px] items-center justify-center min-h-[500px] sm:min-h-[600px]">
+        {/* Magnetic glow behind phone */}
+        <motion.div
+          animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute inset-0 rounded-full bg-[#3bab35]/20 blur-[80px]"
+        />
+
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={index}
+            src={screensArray[index]}
+            alt={`App screen ${index + 1}`}
+            initial={{ opacity: 0, y: 40, scale: 0.92, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -40, scale: 0.92, filter: 'blur(8px)' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 w-full rounded-[40px] border-[6px] border-white/80 shadow-[0_40px_100px_rgba(15,79,36,0.25)] will-change-transform"
+          />
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  )
+})
+
+export default function AdvisorSection() {
+  const sectionRef = useRef(null)
 
   // Entrance variants for Advisor Cards
   const cardVariants = {
@@ -131,11 +168,14 @@ export default function AdvisorSection() {
             {advisors.map((advisor, i) => (
               <motion.article
                 key={advisor.name}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-50px' }}
-                variants={cardVariants}
+                initial={{ opacity: 0, y: 34 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{
+                  delay: i * 0.12,
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 whileHover={{ y: -10 }}
                 className="surface-card group relative flex flex-col items-center p-6 text-center"
               >
@@ -230,37 +270,7 @@ export default function AdvisorSection() {
             </div>
 
             {/* Center Phone Showcase */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="order-1 flex justify-center lg:order-2"
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-            >
-              <div className="relative flex w-full max-w-[350px] xl:max-w-[380px] items-center justify-center min-h-[500px] sm:min-h-[600px]">
-                {/* Magnetic glow behind phone */}
-                <motion.div
-                  animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute inset-0 rounded-full bg-[#3bab35]/20 blur-[80px]"
-                />
-
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={index}
-                    src={screensArray[index]}
-                    alt={`App screen ${index + 1}`}
-                    initial={{ opacity: 0, y: 40, scale: 0.92, filter: 'blur(8px)' }}
-                    animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-                    exit={{ opacity: 0, y: -40, scale: 0.92, filter: 'blur(8px)' }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 w-full rounded-[40px] border-[6px] border-white/80 shadow-[0_40px_100px_rgba(15,79,36,0.25)] will-change-transform"
-                  />
-                </AnimatePresence>
-              </div>
-            </motion.div>
+            <PhoneShowcase />
 
             {/* Right Capabilities */}
             <div className="order-3 flex flex-col gap-6">
