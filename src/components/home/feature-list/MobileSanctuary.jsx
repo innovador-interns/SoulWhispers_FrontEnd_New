@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import BreathingOrb from '../../ui/BreathingOrb'
 import homeImg from '../../../assets/home.png'
 import { ease } from './feature-data'
-import BackgroundLines from '../../ui/BackgroundLines'
 
 export default function MobileSanctuary() {
   return (
@@ -14,7 +13,6 @@ export default function MobileSanctuary() {
         transition={{ duration: 0.9, ease: ease.out }}
         className="scene-panel relative overflow-hidden p-7 sm:p-10"
       >
-        <BackgroundLines />
         <BreathingOrb className="absolute right-0 top-0 h-48 w-48 rounded-full bg-[#3bab35]/10 blur-[60px]" duration={10} />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(59,171,53,0.06),transparent_55%)]" />
 

@@ -8,10 +8,8 @@ import nasreenImg from '../../assets/maam-nasreen.png'
 import appStoreImg from '../../assets/app-store.png'
 import googlePlayImg from '../../assets/google-play.png'
 import BreathingOrb from '../ui/BreathingOrb'
-import BackgroundLines from '../ui/BackgroundLines'
 
 // Memoize background components to prevent re-renders during state changes
-const MemoizedBackgroundLines = memo(BackgroundLines)
 const MemoizedBreathingOrb = memo(BreathingOrb)
 
 const advisors = [
@@ -151,7 +149,6 @@ export default function AdvisorSection() {
     <section ref={sectionRef} className="section-space px-4 sm:px-6 lg:px-8">
       <div className="container space-y-6">
         <div className="scene-panel relative overflow-hidden p-6 sm:p-8">
-          <MemoizedBackgroundLines />
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <span className="section-kicker">Trusted guidance</span>
@@ -206,7 +203,6 @@ export default function AdvisorSection() {
         </div>
 
         <div className="scene-panel relative overflow-hidden p-6 sm:p-10 lg:p-16">
-          <MemoizedBackgroundLines />
           <MemoizedBreathingOrb className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#3bab35]/10 blur-[100px]" />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,171,53,0.05),transparent_60%)]" />
 

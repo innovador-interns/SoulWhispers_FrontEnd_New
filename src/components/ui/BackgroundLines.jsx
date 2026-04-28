@@ -112,6 +112,86 @@ export default function BackgroundLines() {
           opacity="0.5"
           filter="url(#glow)"
         />
+        <path
+          className="flowing-path"
+          d="M-50 50 C 250 -50, 500 150, 750 50 S 1050 50, 1050 50"
+          stroke="#3bab35"
+          strokeWidth="0.4"
+          opacity="0.4"
+          filter="url(#glow)"
+        />
+        <path
+          className="flowing-path"
+          d="M-50 250 C 200 350, 500 150, 800 250 S 1050 250, 1050 250"
+          stroke="#3bab35"
+          strokeWidth="0.5"
+          opacity="0.45"
+          filter="url(#glow)"
+        />
+        <path
+          className="flowing-path"
+          d="M-50 450 C 150 550, 450 350, 750 450 S 1050 450, 1050 450"
+          stroke="#3bab35"
+          strokeWidth="0.4"
+          opacity="0.5"
+          filter="url(#glow)"
+        />
+        <path
+          className="flowing-path"
+          d="M-50 650 C 200 750, 500 550, 800 650 S 1050 650, 1050 650"
+          stroke="#3bab35"
+          strokeWidth="0.5"
+          opacity="0.45"
+          filter="url(#glow)"
+        />
+        <path
+          className="flowing-path"
+          d="M-50 850 C 250 950, 550 750, 850 850 S 1050 850, 1050 850"
+          stroke="#3bab35"
+          strokeWidth="0.4"
+          opacity="0.5"
+          filter="url(#glow)"
+        />
+        <path
+          className="flowing-path"
+          d="M-50 100 C 300 0, 600 200, 900 100 S 1050 100, 1050 100"
+          stroke="#3bab35"
+          strokeWidth="0.5"
+          opacity="0.4"
+          filter="url(#glow)"
+        />
+        <path
+          className="flowing-path"
+          d="M-50 300 C 200 400, 500 200, 800 300 S 1050 300, 1050 300"
+          stroke="#3bab35"
+          strokeWidth="0.4"
+          opacity="0.45"
+          filter="url(#glow)"
+        />
+        <path
+          className="flowing-path"
+          d="M-50 500 C 150 600, 450 400, 750 500 S 1050 500, 1050 500"
+          stroke="#3bab35"
+          strokeWidth="0.5"
+          opacity="0.5"
+          filter="url(#glow)"
+        />
+        <path
+          className="flowing-path"
+          d="M-50 700 C 250 800, 550 600, 850 700 S 1050 700, 1050 700"
+          stroke="#3bab35"
+          strokeWidth="0.4"
+          opacity="0.45"
+          filter="url(#glow)"
+        />
+        <path
+          className="flowing-path"
+          d="M-50 950 C 200 1050, 500 850, 800 950 S 1050 950, 1050 950"
+          stroke="#3bab35"
+          strokeWidth="0.5"
+          opacity="0.4"
+          filter="url(#glow)"
+        />
       </svg>
     </div>
   )

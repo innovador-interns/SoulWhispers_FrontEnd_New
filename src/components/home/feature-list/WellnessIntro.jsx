@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import BreathingOrb from '../../ui/BreathingOrb'
 import { PillarCard } from './FeatureComponents'
 import { supportPillars, ease } from './feature-data'
-import BackgroundLines from '../../ui/BackgroundLines'
 
 export default function WellnessIntro() {
   return (
@@ -13,7 +12,6 @@ export default function WellnessIntro() {
       transition={{ duration: 0.85, ease: ease.out }}
       className="scene-panel relative overflow-hidden p-7 sm:p-10"
     >
-      <BackgroundLines />
       <BreathingOrb className="absolute -left-10 top-10 h-48 w-48 rounded-full bg-[#3bab35]/14 blur-[70px]" />
       <BreathingOrb className="absolute right-10 bottom-0 h-32 w-32 rounded-full bg-[#3bab35]/08 blur-[50px]" duration={11} delay={2} />
 
