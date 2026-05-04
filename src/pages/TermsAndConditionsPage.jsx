@@ -234,7 +234,7 @@ export default function TermsAndConditionsPage() {
                     {/* Footer Note */}
                     <div className="mt-10 pt-16 border-t border-slate-100 text-center">
                         <p className="text-slate-400 text-sm italic">
-                            Last updated: November 2025 • Soul Whispers Platform
+                            Last updated: March 2026 • Soul Whispers Platform
                         </p>
                     </div>
                 </main>

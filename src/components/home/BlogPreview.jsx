@@ -17,7 +17,7 @@ function getCardsPerPage(width) {
   return 1
 }
 
-// ─── Magnetic Button ──────────────────────────────────────────────────────
+// Magnetic Button
 const MagneticBtn = memo(({ children, className, onClick, 'aria-label': ariaLabel }) => {
   const ref = useRef(null)
   const x = useMotionValue(0)
@@ -50,7 +50,7 @@ const MagneticBtn = memo(({ children, className, onClick, 'aria-label': ariaLabe
 
 MagneticBtn.displayName = 'MagneticBtn'
 
-// ─── Progress Bar ─────────────────────────────────────
+// Progress Bar─
 const ProgressBar = memo(({ duration, isPlaying, page }) => {
   const ref = useRef(null)
 
@@ -80,7 +80,7 @@ const ProgressBar = memo(({ duration, isPlaying, page }) => {
 
 ProgressBar.displayName = 'ProgressBar'
 
-// ─── Blog Card ────────────────────────────────────────────────────────────
+// Blog Card
 const BlogCard = memo(({ blog, index, navigate }) => {
   const ref = useRef(null)
 
@@ -103,7 +103,7 @@ const BlogCard = memo(({ blog, index, navigate }) => {
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      onClick={() => navigate(`/blog/${blog.id}`)}
+      onClick={() => navigate(`/blog/${blog.id}/`)}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       className="group cursor-pointer flex flex-col h-full rounded-[24px] border border-slate-200/80 bg-white overflow-hidden"
       style={{
@@ -188,10 +188,10 @@ const BlogCard = memo(({ blog, index, navigate }) => {
 
 BlogCard.displayName = 'BlogCard'
 
-// ─── Dot Indicator ────────────────────────────────────────────────────────
+// Dot Indicator
 const DotIndicator = memo(({ total, current, onSelect }) => {
   return (
-    <div className="mt-8 flex justify-center items-center gap-2">
+    <div className="mt-3 flex justify-center items-center gap-2">
       {Array.from({ length: total }).map((_, i) => (
         <motion.button
           key={i}
@@ -211,7 +211,7 @@ const DotIndicator = memo(({ total, current, onSelect }) => {
 
 DotIndicator.displayName = 'DotIndicator'
 
-// ─── Section Header ───────────────────────────────────────────────────────
+// Section Header
 const SectionHeader = memo(({ navigate, onPrev, onNext }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
@@ -255,7 +255,6 @@ const SectionHeader = memo(({ navigate, onPrev, onNext }) => {
         </div>
 
         <h2
-          ref={headRef}
           className="section-heading mt-5"
           style={{ perspective: '600px' }}
         >
@@ -263,7 +262,9 @@ const SectionHeader = memo(({ navigate, onPrev, onNext }) => {
         </h2>
 
         <p ref={paraRef} className="section-copy mt-4 max-w-2xl">
-          The blog area now follows the same container, spacing, and card rhythm as the rest of the page, so it feels stable instead of visually detached.
+          Thoughtful editorial guidance that carries the same sense of calm beyond the app.
+
+          Our blog highlights supportive therapies, answers your questions, and shares useful insights to guide and strengthen your overall support services.
         </p>
       </div>
 
@@ -290,7 +291,7 @@ const SectionHeader = memo(({ navigate, onPrev, onNext }) => {
         </MagneticBtn>
 
         <motion.button
-          onClick={() => navigate('/blogs')}
+          onClick={() => navigate('/blogs/')}
           whileHover={{ scale: 1.04, boxShadow: '0 20px 50px rgba(15,79,36,0.28)' }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: 'spring', stiffness: 400, damping: 20 }}
@@ -315,14 +316,14 @@ const SectionHeader = memo(({ navigate, onPrev, onNext }) => {
 
 SectionHeader.displayName = 'SectionHeader'
 
-// ─── Slide direction variants ─────────────────────────────────────────────
+// Slide direction variants
 const gridVariants = {
   enter: (dir) => ({ opacity: 0, x: dir > 0 ? 60 : -60 }),
   center: { opacity: 1, x: 0 },
   exit: (dir) => ({ opacity: 0, x: dir > 0 ? -60 : 60 }),
 }
 
-// ─── Main Component ───────────────────────────────────────────────────────
+// Main Component
 export default function BlogPreview() {
   const navigate = useNavigate()
   const AUTO_DURATION = 5000
@@ -389,7 +390,7 @@ export default function BlogPreview() {
   }, [goNext, goPrev])
 
   return (
-    <section className="section-space px-4 sm:px-6 lg:px-8">
+    <section className="section-space px-4 sm:px-6 lg:px-8 pb-10">
       <div className="container">
         <div className="scene-panel overflow-hidden p-6 sm:p-8 lg:p-10 relative">
 

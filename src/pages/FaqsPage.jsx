@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
 import { CustomEase } from 'gsap/CustomEase'
+import { useNavigate } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollTrigger, SplitText, CustomEase)
 CustomEase.create('silk', 'M0,0 C0.25,0 0.1,1 1,1')
@@ -13,7 +14,7 @@ CustomEase.create('snap', 'M0,0 C0.6,0 0.4,1 1,1')
 const faqs = [
   {
     question: 'How does the app help with mental wellness?',
-    answer: 'Our app provides personalized assessments, goal setting, and connects you with certified therapists for tailored mental health support.',
+    answer: 'Our digital mental wellness platform provides personalized assessments, structured goal setting, and connects you with certified therapists to deliver tailored mental wellness support services and practical mental wellness tips. ',
     icon: Brain,
   },
   {
@@ -23,12 +24,12 @@ const faqs = [
   },
   {
     question: 'Can I access therapy sessions anytime?',
-    answer: 'Our platform offers flexible scheduling with therapists available during various time slots to accommodate your needs.',
+    answer: 'Our mental health appointment booking app offers flexible scheduling, with therapists available across multiple time slots to support your needs through online appointment booking for therapy and easy online mental health assessment from virtually anywhere, anytime. ',
     icon: CalendarDays,
   },
   {
     question: 'What makes Soul Whispers different from other apps?',
-    answer: 'We focus on culturally aware support, combining AI-driven insights with human connection for a holistic wellness experience.',
+    answer: 'We prioritize culturally sensitive care by blending AI-driven insights with genuine human connection, creating a holistic experience through our digital mental health app. With Soul Whispers, you can access on-demand therapy anytime and anywhere, making online therapy simple and effective while enjoying teletherapy benefits and affordable therapy online for anxiety, mental wellness, depression, relationship counselling, and a wide range of other support services. ',
     icon: Sparkles,
   },
   {
@@ -38,7 +39,7 @@ const faqs = [
   },
 ];
 
-// ─── Cursor Glow ──────────────────────────────────────────────────────────
+// Cursor Glow
 function CursorGlow() {
   const ref = useRef(null)
   useEffect(() => {
@@ -55,7 +56,7 @@ function CursorGlow() {
   )
 }
 
-// ─── Floating Orbs ────────────────────────────────────────────────────────
+// Floating Orbs──
 function FloatingOrbs() {
   const ref = useRef(null)
   useEffect(() => {
@@ -81,23 +82,26 @@ function FloatingOrbs() {
   )
 }
 
-// ─── GSAP Split Headline ──────────────────────────────────────────────────
-function SplitHeadline({ text, className, delay = 0 }) {
+// GSAP Split Headline──
+function SplitHeadline({ text, className, delay = 0, immediate = false }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
+  const shouldAnimate = immediate || isInView
+
   useLayoutEffect(() => {
-    if (!ref.current || !isInView) return
+    if (!ref.current || !shouldAnimate) return
+    gsap.set(ref.current, { opacity: 1 })
     const split = new SplitText(ref.current, { type: 'chars,words' })
     gsap.fromTo(split.chars,
       { opacity: 0, y: 50, rotationX: -55, transformOrigin: '50% 100%' },
       { opacity: 1, y: 0, rotationX: 0, duration: 0.8, ease: 'silk', stagger: 0.025, delay }
     )
     return () => split.revert()
-  }, [isInView, delay])
-  return <h1 ref={ref} className={className} style={{ perspective: '600px' }}>{text}</h1>
+  }, [shouldAnimate, delay])
+  return <h1 ref={ref} className={className} style={{ opacity: 0, perspective: '600px' }}>{text}</h1>
 }
 
-// ─── Number counter badge ─────────────────────────────────────────────────
+// Number counter badge─
 function IndexBadge({ index, isOpen }) {
   return (
     <motion.span
@@ -110,7 +114,7 @@ function IndexBadge({ index, isOpen }) {
   )
 }
 
-// ─── FAQ Item ─────────────────────────────────────────────────────────────
+// FAQ Item─
 function FaqItem({ faq, index, isOpen, onToggle }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
@@ -236,13 +240,25 @@ function FaqItem({ faq, index, isOpen, onToggle }) {
   )
 }
 
-// ─── Main Page ─────────────────────────────────────────────────────────────
+// Main Page─
 function FaqsPage() {
   const [openIndex, setOpenIndex] = useState(null)
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 22 })
+  const navigate = useNavigate()
 
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i)
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+    if (document.documentElement) document.documentElement.scrollTop = 0
+    if (document.body) document.body.scrollTop = 0
+    
+    const t = setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 100)
+    return () => clearTimeout(t)
+  }, [])
 
   useLayoutEffect(() => {
     gsap.fromTo('.faq-badge',
@@ -276,17 +292,18 @@ function FaqsPage() {
 
         {/* Header */}
         <div className="text-center mb-14 sm:mb-18">
-          <span className="faq-badge inline-block text-xs font-bold uppercase tracking-[0.35em] text-[#3bab35] mb-4">
+          <span className="faq-badge opacity-0 inline-block text-xs font-bold uppercase tracking-[0.35em] text-[#3bab35] mb-4">
             Got Questions?
           </span>
 
           <SplitHeadline
             text="Frequently Asked"
+            immediate={true}
             delay={0.18}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0f4f24] leading-[1.1] tracking-tight"
           />
 
-          <p className="faq-sub mt-4 text-slate-500 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
+          <p className="faq-sub opacity-0 mt-4 text-slate-500 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
             Find answers to common questions about our mental wellness platform and how it can support your journey.
           </p>
 
@@ -328,6 +345,7 @@ function FaqsPage() {
             whileTap={{ scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             className="px-8 py-3.5 rounded-full bg-[#0f4f24] text-white text-sm font-bold tracking-wide shadow-lg shadow-[#3bab35]/15"
+            onClick={() => navigate('/contact/')}
           >
             Contact our team →
           </motion.button>

@@ -325,7 +325,7 @@ function FeatureRow({ feature, index }) {
           className="text-2xl sm:text-3xl font-bold text-[#0f4f24] leading-tight"
         />
 
-        <p ref={descRef} className="text-[16px] text-slate-500 leading-[1.65]">
+        <p ref={descRef} className="text-[15px] text-slate-500 leading-[1.55] whitespace-pre-wrap">
           {feature.description}
         </p>
 

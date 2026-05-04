@@ -8,23 +8,23 @@ import mentalHealthImg from '../../assets/Mental-Health-Psychiatrist.jpg'
 import nutritionImg from '../../assets/Nutrition.jpg'
 import dietitianImg from '../../assets/Dietitian.jpg'
 import healthImg from '../../assets/Health.jpg'
-import { gsap, ScrollTrigger } from '../../lib/gsap'
+import { gsap } from '../../lib/gsap'
 
-// ─── Slide data ────────────────────────────────────────────────────────────────
+// Slide data
 const slides = [
   {
     badge: 'Balanced Living',
     headline: ['A softer path', 'back to emotional', 'balance'],
-    italicLine: 2, // which line index gets italic styling
+    italicLine: 2, 
     description:
-      'Soul Whispers is a calm space with therapy support, mindful routines, and gentle guidance to help you feel steady again.',
+      'Soul Whispers focuses on creating mental wellness support services that feel reassuring rather than overwhelming, so you can reconnect with yourself, rebuild balance, and move ahead with a quieter, more confident mind. ',
     image: mentalHealthImg,
     stats: [
       { value: '24/7', label: 'AI-guided check-ins' },
       { value: '98%', label: 'Satisfaction rate' },
       { value: '2.4k+', label: 'Lives touched' },
     ],
-    cardQuote: 'Slower interactions, clearer pathways, and support that feels gentle, calming, and truly reassuring.',
+    cardQuote: 'Here, every interaction is softer and more intentional, giving you room to slow down, reflect, and move forward with clarity. Through tailored approaches and personalized therapy recommendations, you’re guided toward what truly works for you, not just what’s standard. ',
     tags: ['Therapist support', 'Private & intentional', '24/7 care service'],
     accent: 'from-[#0a2e12] via-[#1a5c2a] to-[#3bab35]',
   },
@@ -33,14 +33,14 @@ const slides = [
     headline: ['Care that supports', 'both mind', 'and body'],
     italicLine: 2,
     description:
-      'Explore nutrition, daily habits, and reflective exercises that help reduce overwhelm and create more clarity in everyday life.',
+      'Take a step toward feeling more in control by exploring nutrition, daily habits, and simple reflective practices that ease overwhelm and bring more clarity into your day. With access to nutrition counselling online, you can better understand how what you eat connects with how you feel both mentally and physically.',
     image: nutritionImg,
     stats: [
       { value: '150+', label: 'Wellness routines' },
       { value: 'Daily', label: 'Gentle reminders' },
       { value: '100%', label: 'Evidence-aware' },
     ],
-    cardQuote: 'Personalized routines and evidence-aware wellness built gently and thoughtfully around your pace.',
+    cardQuote: 'Guided by a dietitian for mental health, the focus goes beyond basic meal plans. It’s about creating supportive routines that nourish your mind, stabilize energy, and help you feel more grounded in everyday life. Through an online diet consultation, you receive practical, realistic guidance that fits naturally into your lifestyle. ',
     tags: ['Personalized routines', 'Gentle reminders', 'Evidence-aware'],
     accent: 'from-[#0f2e1a] via-[#1e6b32] to-[#3bab35]',
   },
@@ -49,14 +49,14 @@ const slides = [
     headline: ['Gentle,', 'personalized support for', 'every soul'],
     italicLine: 1,
     description:
-      'From assessments to tailored recommendations, every interaction is designed to feel calm, clear, and safe in difficult moments.',
+      'From your first online mental health assessment or wellness assessment online, each step is created to feel calm, clear, and supportive, especially when things feel heavy or uncertain. Every interaction is paced gently, so you can move through it without pressure and feel safe opening up at your own comfort level.',
     image: dietitianImg,
     stats: [
       { value: '∞', label: 'Tailored insights' },
       { value: 'Smart', label: 'Progress tracking' },
       { value: 'Mindful', label: 'Care plans' },
     ],
-    cardQuote: 'Tailored insights and mindful care plans shaped around your unique emotional landscape.',
+    cardQuote: 'With personalized therapy recommendations and online personal health coaching, you receive insights that truly reflect your experiences. Thoughtfully designed care plans are shaped around your emotional needs, helping you move forward with steadiness, clarity, and a sense of quiet reassurance.',
     tags: ['Tailored insights', 'Progress tracking', 'Mindful plans'],
     accent: 'from-[#0a2b2e] via-[#0f5c5a] to-[#1faba5]',
   },
@@ -78,14 +78,14 @@ const slides = [
   },
 ]
 
-// ─── Easing presets ────────────────────────────────────────────────────────────
+// Easing presets
 const ease = {
   out: [0.16, 1, 0.3, 1],
   in: [0.7, 0, 0.84, 0],
   inOut: [0.76, 0, 0.24, 1],
 }
 
-// ─── Sub-components ────────────────────────────────────────────────────────────
+// Sub-components
 
 function BreathingOrb({ className, duration = 8, delay = 0 }) {
   return (
@@ -146,7 +146,7 @@ function ScanLine() {
   )
 }
 
-// ─── Magnetic button hook ──────────────────────────────────────────────────────
+// Magnetic button hook
 function useMagnetic(strength = 0.35) {
   const ref = useRef(null)
   const x = useMotionValue(0)
@@ -172,15 +172,14 @@ function useMagnetic(strength = 0.35) {
   return { ref, springX, springY, handleMouseMove, handleMouseLeave }
 }
 
-// ─── Headline with per-word reveal ────────────────────────────────────────────
+// Headline with per-word reveal──
 function AnimatedHeadline({ lines, italicLine, key: slideKey }) {
   const wordVariants = {
-    hidden: { opacity: 0, y: '115%', rotateX: -70, filter: 'blur(6px)' },
+    hidden: { opacity: 0, y: '115%', rotateX: -70 },
     visible: (i) => ({
       opacity: 1,
       y: '0%',
       rotateX: 0,
-      filter: 'blur(0px)',
       transition: { duration: 0.72, delay: i * 0.055, ease: ease.out },
     }),
   }
@@ -217,7 +216,7 @@ function AnimatedHeadline({ lines, italicLine, key: slideKey }) {
   )
 }
 
-// ─── Circular progress ring ───────────────────────────────────────────────────
+// Circular progress ring
 function ProgressRing({ progressValue, size = 48, stroke = 1.5 }) {
   const r = (size - stroke * 2) / 2
   const circ = 2 * Math.PI * r
@@ -239,7 +238,7 @@ function ProgressRing({ progressValue, size = 48, stroke = 1.5 }) {
   )
 }
 
-// ─── Main component ────────────────────────────────────────────────────────────
+// Main component
 function HeroSlider() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
@@ -258,10 +257,10 @@ function HeroSlider() {
 
   const slide = slides[activeIndex]
 
-  // ── Magnetic CTA ─────────────────────────────────────────────────────────────
+  // ── Magnetic CTA─
   const mag = useMagnetic(0.45)
 
-  // ── Progress tick ─────────────────────────────────────────────────────────────
+  // ── Progress tick─
   useEffect(() => {
     progressTweenRef.current?.kill();
 
@@ -281,7 +280,7 @@ function HeroSlider() {
     return () => progressTweenRef.current?.kill();
   }, [activeIndex, isEffectivelyPaused])
 
-  // ── Auto advance ──────────────────────────────────────────────────────────────
+  // ── Auto advance──
   useEffect(() => {
     if (isEffectivelyPaused) return
     const timer = setTimeout(() => {
@@ -303,7 +302,7 @@ function HeroSlider() {
     return () => observer.disconnect()
   }, [])
 
-  // ── GSAP entrance + parallax ──────────────────────────────────────────────────
+  // ── GSAP entrance + parallax──
   useLayoutEffect(() => {
     const section = sectionRef.current;
     const background = backgroundRef.current;
@@ -342,7 +341,7 @@ function HeroSlider() {
     return () => ctx.revert();
   }, [activeIndex]);
 
-  // ── Navigation ────────────────────────────────────────────────────────────────
+  // ── Navigation─
   const goTo = useCallback((idx, dir = 1) => {
     if (idx === activeIndex) return
     setDirection(dir)
@@ -353,7 +352,7 @@ function HeroSlider() {
   const handlePrev = () => goTo(activeIndex === 0 ? slides.length - 1 : activeIndex - 1, -1)
   const handleNext = () => goTo((activeIndex + 1) % slides.length, 1)
 
-  // ── Slide animation variants ───────────────────────────────────────────────────
+  // ── Slide animation variants
   const bgVariants = {
     enter: (d) => ({ opacity: 0, scale: 1.08, x: d > 0 ? 40 : -40 }),
     center: { opacity: 1, scale: 1, x: 0, transition: { duration: 1.4, ease: ease.out } },
@@ -369,7 +368,7 @@ function HeroSlider() {
   return (
     <section
       ref={sectionRef}
-      className="section-space relative overflow-hidden px-4 pb-0 pt-6 sm:px-6 lg:px-8 "
+      className="section-space relative overflow-hidden px-4 pb-0 pt-6 sm:px-6 lg:px-8 selection:bg-[#3bab35] selection:text-white"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -396,10 +395,10 @@ function HeroSlider() {
           </AnimatePresence>
 
           {/* ── Gradient overlays ── */}
-          <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.08),transparent_40%)]" />
-          <div className="absolute inset-0 z-[1] bg-[linear-gradient(105deg,rgba(4,14,6,0.97)_0%,rgba(8,30,12,0.85)_30%,rgba(8,30,12,0.52)_58%,rgba(8,30,12,0.18)_78%,transparent_90%)]" />
-          <div className="absolute inset-0 z-[1] bg-[linear-gradient(to_top,rgba(4,10,5,0.95)_0%,transparent_38%)]" />
-          <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_75%_50%,transparent_28%,rgba(3,8,4,0.55)_100%)]" />
+          <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.12),transparent_50%)]" />
+          <div className="absolute inset-0 z-[1] bg-[linear-gradient(105deg,rgba(15,79,36,0.55)_0%,rgba(15,79,36,0.35)_30%,rgba(15,79,36,0.15)_58%,transparent_95%)]" />
+          <div className="absolute inset-0 z-[1] bg-[linear-gradient(to_top,rgba(15,79,36,0.45)_0%,transparent_40%)]" />
+          <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_75%_50%,transparent_40%,rgba(15,79,36,0.15)_100%)]" />
 
           {/* ── Atmospheric orbs ── */}
           <BreathingOrb className="absolute left-[6%] top-[10%] z-[2] h-[420px] w-[420px] rounded-full bg-[#3bab35]/14 blur-[100px]" duration={9} />
@@ -565,7 +564,7 @@ function HeroSlider() {
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  className="w-full max-w-sm rounded-[28px] border border-white/14 bg-white/10 p-6 shadow-[0_30px_70px_rgba(0,0,0,0.22)] backdrop-blur-[40px]"
+                  className="w-full max-w-sm rounded-[28px] border border-white/14 bg-white/10 p-6 shadow-[0_30px_70px_rgba(0,0,0,0.22)] backdrop-blur-xl will-change-transform"
                 >
                   {/* Card header */}
                   <div className="flex items-center justify-between">
@@ -586,7 +585,7 @@ function HeroSlider() {
                   />
 
                   {/* Quote */}
-                  <p className="mt-5 font-['Cormorant_Garamond',serif] text-2xl font-light leading-[1.48] text-white">
+                  <p className="mt-5 font-['Cormorant_Garamond',serif] text-lg font-light leading-[1.48] text-white/85 sm:text-xl">
                     {slide.cardQuote}
                   </p>
 

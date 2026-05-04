@@ -35,7 +35,7 @@ export default function WellnessIntro() {
           data-gsap-reveal
           className="section-copy max-w-xl self-end text-slate-500 lg:mt-12"
         >
-          We redesigned the experience as a sequence of calm, focused scenes so each step feels understandable, supportive, and emotionally safe.
+          We reshaped the journey into a series of calm, focused moments guided by an online wellness consultant and a certified wellness coach, so each step feels easy to follow, supportive, and emotionally safe within a digital mental wellness platform.
         </p>
       </div>
 

@@ -6,10 +6,10 @@ import logoImg from '../assets/logo.png'
 
 const navItems = [
     { label: 'Home', to: '/' },
-    { label: 'Features', to: '/features' },
-    { label: 'Blogs', to: '/blogs' },
-    { label: 'FAQs', to: '/faqs' },
-    { label: 'Contact', to: '/contact' },
+    { label: 'Features', to: '/features/' },
+    { label: 'Blogs', to: '/blogs/' },
+    { label: 'FAQs', to: '/faqs/' },
+    { label: 'Contact', to: '/contact/' },
 ];
 
 const containerVariants = {

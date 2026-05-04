@@ -10,16 +10,16 @@ export default function FoundersNote({ founderRef, readMore, setReadMore }) {
       <BreathingOrb className="absolute left-0 top-0 h-64 w-64 rounded-full bg-[#3bab35]/07 blur-[80px]" duration={14} />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(59,171,53,0.05),transparent_50%)]" />
 
-      <motion.div 
+      <motion.div
         layout
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="relative grid items-center gap-10 lg:grid-cols-[0.78fr_1.22fr]"
       >
         {/* Photo */}
-        <motion.div 
-          layout 
+        <motion.div
+          layout
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          data-founder-photo 
+          data-founder-photo
           className="flex justify-center lg:justify-start"
         >
           <div className="group relative">
@@ -60,8 +60,8 @@ export default function FoundersNote({ founderRef, readMore, setReadMore }) {
         </motion.div>
 
         {/* Quote content */}
-        <motion.div 
-          layout 
+        <motion.div
+          layout
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           data-founder-quote
         >
@@ -80,13 +80,19 @@ export default function FoundersNote({ founderRef, readMore, setReadMore }) {
               className="absolute -left-2 -top-3 text-[#3bab35]/20"
               strokeWidth={1}
             />
-            <motion.div 
-              layout 
+            <motion.div
+              layout
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden"
             >
-              <p className={`relative pl-6 text-sm leading-[1.4] text-slate-500 sm:text-[0.95rem] ${!readMore ? 'line-clamp-6' : ''}`}>
-                In a world where mental health care is often inaccessible and stigmatized, especially in places like Pakistan, where I am from, my vision for our app aims to bridge the gap between those in need and the therapists who can genuinely make a difference. Our mission is to connect clients with therapists who meet their specific needs and understand their unique cultural contexts. Just as a well-fitted glove provides comfort and protection, finding the right therapist can offer the crucial support and guidance individuals need to navigate their mental health journeys. Our app stands out by offering immediate support during crises.In urgent need, clients can connect with the earliest available therapist, ensuring they receive timely help without the distress of waiting and repeated rejections. This feature is designed to alleviate the immense toll that seeking mental health care can take, especially in emergencies. Inspired by personal experiences and a deep-seated commitment to mental health advocacy, particularly in taboo regions, our app is more than just a tool—it's a lifeline. By leveraging technology, we strive to make mental health care accessible, empathetic, and effective for everyone, regardless of their background or circumstances. Together, we can foster a world where mental health is prioritized, and everyone has the support they need to thrive.
+              <p className={`relative pl-6 text-sm leading-[1.4] whitespace-pre-wrap text-slate-500 sm:text-[0.95rem] ${!readMore ? 'line-clamp-6' : ''}`}>
+                In a world where mental health care is often out of reach or surrounded by stigma, especially in places like Pakistan, where I come from, our vision is to close the gap between those seeking help and the professionals who can truly support them. Our goal is to connect individuals with a certified online therapist who not only fits their needs but also understands their cultural background and personal experiences. Just like a well-fitted glove brings ease and protection, the right match through personalized therapy recommendations can offer the comfort and direction people need on their mental health journey.
+                <br />
+                <br />
+                What sets our app apart is its ability to provide immediate care when it matters most. In moments of urgency, users can access an online psychologist consultation with the earliest available therapist, ensuring timely support without the frustration of long waits or repeated rejections. This approach helps reduce the emotional burden that often comes with seeking mental wellness counselling online, particularly during critical situations.
+                <br />
+                <br />
+                Rooted in personal experiences and a strong commitment to mental health advocacy, especially in regions where these conversations are still considered taboo, this platform goes beyond being just a service. It becomes a lifeline. By combining technology with empathy, we aim to make emotional wellness counselling more accessible, understanding, and effective for people from all walks of life. The vision is simple: a world where mental health is treated as a priority, and everyone has the support they need to move forward with strength and clarity.
               </p>
             </motion.div>
             <AnimatePresence>

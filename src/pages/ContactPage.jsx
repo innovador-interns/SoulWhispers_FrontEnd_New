@@ -28,7 +28,7 @@ const contactInfo = [
   { icon: MapPin, label: 'Visit us', value: 'Karachi, Pakistan' },
 ]
 
-// ─── Cursor Glow ──────────────────────────────────────────────────────────
+// Cursor Glow─
 function CursorGlow() {
   const ref = useRef(null)
   useEffect(() => {
@@ -45,7 +45,7 @@ function CursorGlow() {
   )
 }
 
-// ─── Floating Orbs ────────────────────────────────────────────────────────
+// Floating Orbs──
 function FloatingOrbs() {
   const ref = useRef(null)
   useEffect(() => {
@@ -71,23 +71,26 @@ function FloatingOrbs() {
   )
 }
 
-// ─── GSAP Split Headline ──────────────────────────────────────────────────
-function SplitHeadline({ text, className, delay = 0 }) {
+// GSAP Split Headline
+function SplitHeadline({ text, className, delay = 0, immediate = false }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
+  const shouldAnimate = immediate || isInView
+
   useLayoutEffect(() => {
-    if (!ref.current || !isInView) return
+    if (!ref.current || !shouldAnimate) return
+    gsap.set(ref.current, { opacity: 1 })
     const split = new SplitText(ref.current, { type: 'chars,words' })
     gsap.fromTo(split.chars,
       { opacity: 0, y: 50, rotationX: -55, transformOrigin: '50% 100%' },
       { opacity: 1, y: 0, rotationX: 0, duration: 0.8, ease: 'silk', stagger: 0.025, delay }
     )
     return () => split.revert()
-  }, [isInView, delay])
-  return <h1 ref={ref} className={className} style={{ perspective: '600px' }}>{text}</h1>
+  }, [shouldAnimate, delay])
+  return <h1 ref={ref} className={className} style={{ opacity: 0, perspective: '600px' }}>{text}</h1>
 }
 
-// ─── Animated Input Field ─────────────────────────────────────────────────
+// Animated Input Field
 function AnimatedField({ name, label, icon: Icon, type = 'text', as, rows, placeholder, delay = 0 }) {
   const [focused, setFocused] = useState(false)
   const ref = useRef(null)
@@ -162,22 +165,13 @@ function AnimatedField({ name, label, icon: Icon, type = 'text', as, rows, place
   )
 }
 
-// ─── Contact Info Pill ────────────────────────────────────────────────────
+// Contact Info Pill─
 function InfoPill({ icon: Icon, label, value, index }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-40px' })
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const sx = useSpring(x, { stiffness: 280, damping: 22 })
   const sy = useSpring(y, { stiffness: 280, damping: 22 })
-
-  useLayoutEffect(() => {
-    if (!ref.current || !isInView) return
-    gsap.fromTo(ref.current,
-      { opacity: 0, y: 20, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'silk', delay: 0.5 + index * 0.1 }
-    )
-  }, [isInView])
 
   const onMove = (e) => {
     const r = ref.current.getBoundingClientRect()
@@ -195,25 +189,18 @@ function InfoPill({ icon: Icon, label, value, index }) {
       whileHover={{ boxShadow: '0 12px 40px rgba(15,79,36,0.10)' }}
       className="flex items-start gap-3 bg-white/80 backdrop-blur-sm border border-slate-100 rounded-xl px-4 py-3 cursor-default"
     >
-      {/* Icon */}
       <div className="w-9 h-9 rounded-full bg-[#e3f5e1] flex items-center justify-center flex-shrink-0">
         <Icon size={15} className="text-[#3bab35]" />
       </div>
-
-      {/* TEXT */}
       <div className="min-w-0">
-        <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 break-words">
-          {label}
-        </p>
-        <p className="text-sm font-semibold text-slate-700 break-words leading-snug">
-          {value}
-        </p>
+        <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 break-words">{label}</p>
+        <p className="text-sm font-semibold text-slate-700 break-words leading-snug">{value}</p>
       </div>
     </motion.div>
   )
 }
 
-// ─── Contact Image (with parallax + tilt) ─────────────────────────────────
+// Contact Image (with parallax + tilt)
 function ContactImage({ src }) {
   const wrapRef = useRef(null)
   const imgRef = useRef(null)
@@ -221,12 +208,12 @@ function ContactImage({ src }) {
 
   // Clip-path reveal
   useLayoutEffect(() => {
-    if (!wrapRef.current || !isInView) return
+    if (!wrapRef.current) return
     gsap.fromTo(wrapRef.current,
       { clipPath: 'inset(10% 5% 10% 5% round 24px)', opacity: 0, scale: 0.97 },
       { clipPath: 'inset(0% 0% 0% 0% round 24px)', opacity: 1, scale: 1, duration: 1.2, ease: 'silk', delay: 0.2 }
     )
-  }, [isInView])
+  }, [])
 
   // Scroll parallax
   useLayoutEffect(() => {
@@ -294,7 +281,7 @@ function ContactImage({ src }) {
   )
 }
 
-// ─── Submit Button ────────────────────────────────────────────────────────
+// Submit Button──
 function SubmitButton({ isSubmitting }) {
   return (
     <motion.button
@@ -352,23 +339,14 @@ function SubmitButton({ isSubmitting }) {
   )
 }
 
-// ─── Main Page ─────────────────────────────────────────────────────────────
+// Main Page
 function ContactPage() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 22 })
   const formRef = useRef(null)
   const isFormInView = useInView(formRef, { once: true, margin: '-60px' })
 
-  // Form card reveal
-  useLayoutEffect(() => {
-    if (!formRef.current || !isFormInView) return
-    gsap.fromTo(formRef.current,
-      { opacity: 0, x: -50, scale: 0.97 },
-      { opacity: 1, x: 0, scale: 1, duration: 0.9, ease: 'silk', delay: 0.1 }
-    )
-  }, [isFormInView])
 
-  // Header entrance
   useLayoutEffect(() => {
     gsap.fromTo('.contact-badge',
       { opacity: 0, y: -14, letterSpacing: '0.5em' },
@@ -413,17 +391,18 @@ function ContactPage() {
 
         {/* Header */}
         <div className="text-center mb-14 sm:mb-18">
-          <span className="contact-badge inline-block text-xs font-bold uppercase tracking-[0.35em] text-[#3bab35] mb-4">
+          <span className="contact-badge opacity-0 inline-block text-xs font-bold uppercase tracking-[0.35em] text-[#3bab35] mb-4">
             Get In Touch
           </span>
 
           <SplitHeadline
             text="Contact Us"
+            immediate={true}
             delay={0.18}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0f4f24] leading-[1.1] tracking-tight"
           />
 
-          <p className="contact-sub mt-4 text-slate-500 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
+          <p className="contact-sub opacity-0 mt-4 text-slate-500 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
             Get in touch with our team. We're here to help you on your wellness journey.
           </p>
 
@@ -442,7 +421,12 @@ function ContactPage() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
 
           {/* ── Left: Form card ── */}
-          <div ref={formRef} style={{ opacity: 0 }}
+          <motion.div 
+            ref={formRef}
+            initial={{ opacity: 0, x: -50, scale: 0.97 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-900/5 p-7 sm:p-9"
           >
             {/* Form header */}
@@ -493,10 +477,10 @@ function ContactPage() {
                 </Form>
               )}
             </Formik>
-          </div>
+          </motion.div>
 
           {/* ── Right: Image + Info ── */}
-          <div className="flex flex-col gap-5">
+          <div className="md:flex flex-col gap-5 hidden">
             {/* Contact image */}
             <div className="hidden md:block">
               <ContactImage src={contactImage} />

@@ -482,7 +482,7 @@ function BlogDetailPage() {
                             </div>
                             <div>
                                 <p className="font-semibold text-slate-900 ">{blog.author}</p>
-                                <p className="text-sm text-slate-500 mt-0.5">Wellness Expert at Soul Whispers</p>
+                                {/* <p className="text-sm text-slate-500 mt-0.5">Wellness Expert at Soul Whispers</p> */}
                             </div>
                         </motion.div>
                     )}

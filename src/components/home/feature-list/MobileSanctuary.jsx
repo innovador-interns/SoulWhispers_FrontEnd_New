@@ -25,7 +25,7 @@ export default function MobileSanctuary() {
             Prioritizing your well-being in a format that feels reassuring, not clinical
           </h3>
           <p data-gsap-reveal className="section-copy mt-5 max-w-lg text-slate-500">
-            The app experience leans into softer hierarchy, clearer actions, and more breathing room — helping people stay grounded while navigating deeply personal decisions.
+            The app experience focuses on a softer structure, clearer actions, and more space to pause, helping people stay grounded while navigating deeply personal decisions through stress management counselling online, counselling sessions online, and guidance from an online wellness consultant.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">

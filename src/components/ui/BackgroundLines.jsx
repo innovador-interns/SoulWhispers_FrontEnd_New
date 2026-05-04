@@ -61,15 +61,6 @@ export default function BackgroundLines() {
         className="h-full w-full opacity-60"
         fill="none"
       >
-        <defs>
-          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
 
         {/* Lines */}
         <path
@@ -78,7 +69,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.6"
           opacity="0.5"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -86,7 +76,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.4"
           opacity="0.45"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -94,7 +83,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.5"
           opacity="0.5"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -102,7 +90,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.4"
           opacity="0.45"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -110,7 +97,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.5"
           opacity="0.5"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -118,7 +104,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.4"
           opacity="0.4"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -126,7 +111,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.5"
           opacity="0.45"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -134,7 +118,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.4"
           opacity="0.5"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -142,7 +125,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.5"
           opacity="0.45"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -150,7 +132,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.4"
           opacity="0.5"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -158,7 +139,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.5"
           opacity="0.4"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -166,7 +146,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.4"
           opacity="0.45"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -174,7 +153,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.5"
           opacity="0.5"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -182,7 +160,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.4"
           opacity="0.45"
-          filter="url(#glow)"
         />
         <path
           className="flowing-path"
@@ -190,7 +167,6 @@ export default function BackgroundLines() {
           stroke="#3bab35"
           strokeWidth="0.5"
           opacity="0.4"
-          filter="url(#glow)"
         />
       </svg>
     </div>

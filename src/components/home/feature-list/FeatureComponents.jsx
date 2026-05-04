@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { useTilt } from './feature-hooks'
 import { ease } from './feature-data'
 
-// ─── Step pill ─────────────────────────────────────────────────────────────────
+// Step pill
 export const StepPill = memo(function StepPill({ step, index, active, onClick }) {
   return (
     <motion.button
@@ -54,7 +54,7 @@ export const StepPill = memo(function StepPill({ step, index, active, onClick })
   )
 })
 
-// ─── Main feature card ─────────────────────────────────────────────────────────
+// Main feature card
 export const FeatureCard = memo(function FeatureCard({ step, index }) {
   const tilt = useTilt(5)
 
@@ -149,7 +149,7 @@ export const FeatureCard = memo(function FeatureCard({ step, index }) {
   )
 })
 
-// ─── Pillar card ───────────────────────────────────────────────────────────────
+// Pillar card
 export const PillarCard = memo(function PillarCard({ title, description, icon: Icon, delay = 0 }) {
   const tilt = useTilt(6)
   return (
@@ -186,7 +186,7 @@ export const PillarCard = memo(function PillarCard({ title, description, icon: I
   )
 })
 
-// ─── Vertical timeline dot ─────────────────────────────────────────────────────
+// Vertical timeline dot
 export const TimelineDot = memo(function TimelineDot({ active, done, onClick }) {
   return (
     <motion.button
