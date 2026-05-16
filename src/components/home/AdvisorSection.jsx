@@ -137,7 +137,7 @@ function CapCard({ item }) {
       <div className="relative z-10 mb-3.5 flex h-11 w-11 items-center justify-center rounded-[.85rem] border border-brand/20 bg-gradient-to-br from-brand/10 to-brand-light/5 text-brand">
         <Icon size={19} strokeWidth={1.6} />
       </div>
-      <h4 className="relative z-10 font-syne text-[0.97rem] font-bold text-[#0f4f24]">
+      <h4 className="relative z-10 text-[0.97rem] font-bold text-[#0f4f24]">
         {item.title}
       </h4>
       <p className="relative z-10 mt-1.5 text-[0.86rem] leading-relaxed text-[#0f4f24]">
@@ -364,7 +364,7 @@ export default function AdvisorSection() {
                 </div>
                 <h2
                   id="sw-h1"
-                  className="section-heading mt-4 translate-y-10 font-display text-3xl md:text-5xl font-normal leading-[1.08] tracking-[-0.025em] text-forest-900 opacity-0"
+                  className="section-heading mt-4 translate-y-10 text-3xl md:text-5xl font-normal leading-[1.08] tracking-[-0.025em] text-forest-900 opacity-0"
                 >
                   Support shaped by people who understand{' '}
                   <em className="italic text-brand">care, trust &amp; delivery</em>
@@ -417,7 +417,7 @@ export default function AdvisorSection() {
 
               <div
                 id="sw-k2"
-                className="inline-flex translate-y-10 items-center justify-center gap-2.5 font-syne text-[11px] font-bold uppercase tracking-[.2em] text-brand opacity-0"
+                className="inline-flex translate-y-10 items-center justify-center gap-2.5 text-[11px] font-bold uppercase tracking-[.2em] text-brand opacity-0"
               >
                 <span className="h-px w-7 rounded-full bg-gradient-to-r from-brand to-brand-light" />
                 App experience
@@ -425,7 +425,7 @@ export default function AdvisorSection() {
 
               <h2
                 id="sw-h2"
-                className="mt-4 section-heading translate-y-10 font-display text-3xl md:text-5xl font-normal leading-[1.08] tracking-[-0.025em] text-forest-900 opacity-0"
+                className="mt-4 section-heading translate-y-10 text-3xl md:text-5xl font-normal leading-[1.08] tracking-[-0.025em] text-forest-900 opacity-0"
               >
                 Moments designed to feel{' '}
                 <em className="italic text-brand">lighter, clearer &amp; more reassuring</em>

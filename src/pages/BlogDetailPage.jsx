@@ -268,6 +268,8 @@ function BlogDetailPage() {
     const [isPaused, setIsPaused] = useState(false)
     const [scrolled, setScrolled] = useState(false)
     const [readProgress, setReadProgress] = useState(0)
+    const [hoverPrev, setHoverPrev] = useState(false)
+    const [hoverNext, setHoverNext] = useState(false)
     const articleRef = useRef(null)
     const VISIBLE = 2
 
@@ -298,6 +300,8 @@ function BlogDetailPage() {
     )
 
     const viewedBlogIndex = blogs.findIndex(b => b.id === id)
+    const prevBlog = blogs[(viewedBlogIndex - 1 + blogs.length) % blogs.length]
+    const nextBlog = blogs[(viewedBlogIndex + 1) % blogs.length]
 
     const handlePrev = () => {
         const prevIdx = (viewedBlogIndex - 1 + blogs.length) % blogs.length
@@ -344,21 +348,83 @@ function BlogDetailPage() {
                 className="min-h-screen bg-white relative"
             >
                 {/* arrows */}
-                <button
-                    onClick={handlePrev}
-                    className="fixed left-5 top-1/2 -translate-y-1/2 text-[#3bab35] z-50 p-2 rounded-full bg-white/20 backdrop-blur-md border border-[#3bab35]/20 hover:bg-[#3bab35] hover:text-white transition-all duration-300 shadow-lg group hover:scale-110 active:scale-95"
-                    aria-label="Previous blog"
-                >
-                    <ChevronLeft size={32} className="group-hover:-translate-x-0.5 transition-transform" />
-                </button>
+                <div className="fixed left-5 top-1/2 -translate-y-1/2 z-50">
+                    <button
+                        onClick={handlePrev}
+                        onMouseEnter={() => setHoverPrev(true)}
+                        onMouseLeave={() => setHoverPrev(false)}
+                        className="text-[#3bab35] p-2 rounded-full bg-white/20 backdrop-blur-md border border-[#3bab35]/20 hover:bg-[#3bab35] hover:text-white transition-all duration-300 shadow-lg group hover:scale-110 active:scale-95"
+                        aria-label="Previous blog"
+                    >
+                        <ChevronLeft size={32} className="group-hover:-translate-x-0.5 transition-transform" />
+                    </button>
+                    
+                    <AnimatePresence>
+                        {hoverPrev && (
+                            <motion.div
+                                initial={{ opacity: 0, x: -20, scale: 0.95 }}
+                                animate={{ opacity: 1, x: 0, scale: 1 }}
+                                exit={{ opacity: 0, x: -20, scale: 0.95 }}
+                                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                                className="absolute left-16 top-1/2 -translate-y-1/2 w-64 bg-white rounded-2xl shadow-2xl shadow-green-900/10 overflow-hidden border border-slate-100"
+                            >
+                                <div className="relative h-36 overflow-hidden">
+                                    <img
+                                        src={prevBlog.image}
+                                        alt={prevBlog.title}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                </div>
+                                <div className="p-4">
+                                    <p className="text-xs text-[#3bab35] font-medium mb-1">Previous</p>
+                                    <h3 className="text-sm font-semibold text-slate-900 line-clamp-2 leading-snug">
+                                        {prevBlog.title}
+                                    </h3>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
 
-                <button
-                    onClick={handleNext}
-                    className="fixed right-5 top-1/2 -translate-y-1/2 text-[#3bab35] z-50 p-2 rounded-full bg-white/20 backdrop-blur-md border border-[#3bab35]/20 hover:bg-[#3bab35] hover:text-white transition-all duration-300 shadow-lg group hover:scale-110 active:scale-95"
-                    aria-label="Next blog"
-                >
-                    <ChevronRight size={32} className="group-hover:translate-x-0.5 transition-transform" />
-                </button>
+                <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50">
+                    <button
+                        onClick={handleNext}
+                        onMouseEnter={() => setHoverNext(true)}
+                        onMouseLeave={() => setHoverNext(false)}
+                        className="text-[#3bab35] p-2 rounded-full bg-white/20 backdrop-blur-md border border-[#3bab35]/20 hover:bg-[#3bab35] hover:text-white transition-all duration-300 shadow-lg group hover:scale-110 active:scale-95"
+                        aria-label="Next blog"
+                    >
+                        <ChevronRight size={32} className="group-hover:translate-x-0.5 transition-transform" />
+                    </button>
+                    
+                    <AnimatePresence>
+                        {hoverNext && (
+                            <motion.div
+                                initial={{ opacity: 0, x: 20, scale: 0.95 }}
+                                animate={{ opacity: 1, x: 0, scale: 1 }}
+                                exit={{ opacity: 0, x: 20, scale: 0.95 }}
+                                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                                className="absolute right-16 top-1/2 -translate-y-1/2 w-64 bg-white rounded-2xl shadow-2xl shadow-green-900/10 overflow-hidden border border-slate-100"
+                            >
+                                <div className="relative h-36 overflow-hidden">
+                                    <img
+                                        src={nextBlog.image}
+                                        alt={nextBlog.title}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                </div>
+                                <div className="p-4">
+                                    <p className="text-xs text-[#3bab35] font-medium mb-1">Next</p>
+                                    <h3 className="text-sm font-semibold text-slate-900 line-clamp-2 leading-snug">
+                                        {nextBlog.title}
+                                    </h3>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
 
                 {/*  Sticky Nav Back Button  */}
                 <motion.div
